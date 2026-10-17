@@ -1,0 +1,32 @@
+---
+title: "Sensores de oxígeno (Lambda / Wideband): Cómo leer gráficas"
+description: "Guía técnica para interpretar las gráficas de los sensores de oxígeno O2 Narrowband y Wideband (Air-Fuel Ratio): mezcla rica, pobre y fallas de catalizador."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "es"
+translationSlug: "oxygen-sensors-lambda-wideband-how-to-read-graphs"
+coverImage: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Cuando conectas una aplicación de diagnóstico OBD2 para revisar el comportamiento del motor en tiempo real, una de las pantallas más importantes es la de los **sensores de oxígeno (O2 Sensors / Lambda)**. Saber interpretar las ondas y los valores numéricos de estos sensores permite diagnosticar desde inyectores sucios y entradas de aire falso hasta un convertidor catalítico agotado antes de que encienda el testigo de falla.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Sensor Narrowband (Banda Estrecha) vs. Wideband (Banda Ancha)
+
+En los vehículos modernos hay que distinguir claramente entre los sensores ubicados antes y después del catalizador:
+
+* **Sensor A/F Wideband (Banda Ancha - Banco 1, Sensor 1):** Ubicado antes del catalizador, mide con precisión milimétrica la relación exacta aire/combustible (*Air-Fuel Ratio* - AFR) en un rango amplio. En lugar de oscilar bruscamente, entrega un valor lineal (habitualmente medido en coeficiente Lambda $\lambda$, donde $1.0$ es la mezcla estequiométrica ideal de 14.7 partes de aire por 1 de gasolina).
+* **Sensor O2 Narrowband (Banda Estrecha - Sensor 2 / Aguas abajo):** Ubicado después del catalizador, actúa únicamente como un "testigo" para comprobar que el catalizador está quemando los residuos químicos sobrantes. Su voltaje oscila de forma constante entre **0.1V (mezcla pobre, alto oxígeno)** y **0.9V (mezcla rica, bajo oxígeno)**.
+
+## 2. Cómo interpretar las gráficas en el escáner
+
+1. **Lectura fija en 0.45V o sin oscilación en Sensor 1:** Si el sensor delantero se queda congelado en un valor estático, la ECU entra en bucle abierto (*Open Loop*) y el motor sufrirá tirones o consumo excesivo de combustible por fallo del calefactor interno del sensor.
+2. **Sensor trasero (Sensor 2) idéntico al delantero:** Si la gráfica del sensor posterior imita las ondas rápidas del sensor delantero, significa que **el convertidor catalítico ha perdido su eficiencia** y ya no almacena oxígeno para limpiar los gases (código típico `P0420`).
+3. **Ajustes de combustible (Fuel Trims):** Si el *Short Term Fuel Trim (STFT)* se mantiene constantemente sumando o restando más del 10%, la ECU está intentando compensar una fuga de vacío en el múltiple o un inyector con goteo.
+
+## Conclusión
+
+Dominar la lectura de gráficas de sensores de oxígeno en el bus OBD2 te permite aislar fallas de combustión en minutos sin necesidad de adivinar qué pieza cambiar.

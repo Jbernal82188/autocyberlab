@@ -1,0 +1,40 @@
+---
+title: "CAN Bus Failure Modes: Short to Ground, Power & Open Circuits"
+description: "Electrical analysis of CAN High and CAN Low network failures: short circuits to 12V, ground faults, 120-ohm termination resistance, and scope diagnostics."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "en"
+translationSlug: "modos-fallo-can-bus-cortocircuito-abierto"
+coverImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+The **Controller Area Network (CAN Bus)** functions as the central nervous system of a modern vehicle. When physical damage occurs within the twisted-pair wiring harness (CAN High and CAN Low), the entire communication grid can fail, disabling multiple control modules simultaneously.
+
+<AdSlot slotId="1122334455" />
+
+## 1. The Three Primary CAN Bus Electrical Failure Modes
+
+### 1. Open Circuit
+Happens when one wire in the twisted pair breaks (often inside door boot grommets due to repetitive flexing).
+* **Effect:** The differential signaling breaks down and terminal resistance drops to $120\ \Omega$, causing intermittent communication faults (`U`-codes) as vibration separates the broken strands.
+
+### 2. Short to Ground
+Occurs when **CAN Low** or **CAN High** touches bare metal chassis ground (0V).
+* **Effect:** Differential voltage collapse halts message transmission across all connected transceivers, shutting down network communication.
+
+### 3. Short to Battery (+12V)
+The most destructive fault, happening when harness insulation melts against a constant +12V power feed.
+* **Effect:** High voltage instantly destroys transceiver IC chips (such as TJA1050 or MCP2551) across connected control modules.
+
+## 2. Diagnostic Testing via Multimeter and Scope
+
+* **Static Resistance (Battery Disconnected):**
+  * Healthy network: **60 $\Omega$**.
+  * Reading **120 $\Omega$**: Open circuit on one termination resistor branch.
+  * Reading **0 $\Omega$ or infinity ($\infty$)**: Direct short or total severed wire.
+
+## Conclusion
+
+Understanding CAN Bus electrical failure modes accelerates troubleshooting harness damage in complex collision and wiring repairs.

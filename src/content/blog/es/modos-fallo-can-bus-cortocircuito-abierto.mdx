@@ -1,0 +1,40 @@
+---
+title: "Modos de fallo del CAN Bus: Cortocircuito a masa, positivo y abierto"
+description: "Análisis eléctrico de fallas en redes CAN High y CAN Low: cortocircuitos, resistencias de terminación de 120 ohms y caída de tensión con osciloscopio."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "es"
+translationSlug: "can-bus-failure-modes-short-to-ground-battery-open-circuit"
+coverImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+La red **CAN Bus (Controller Area Network)** es el sistema nervioso central de un vehículo moderno. Cuando se produce una avería física en el par trenzado de cables (CAN High y CAN Low), toda la red de comunicaciones puede colapsar, provocando la caída simultánea de múltiples módulos.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Los Tres Modos de Fallo Eléctrico en el Bus CAN
+
+### 1. Bus Abierto (Open Circuit)
+Ocurre cuando uno de los dos hilos del par trenzado se corta (por ejemplo, debido a una fricción en el passacables de una puerta). 
+* **Efecto:** El sistema pierde la arquitectura diferencial y la resistencia de terminación de $120\ \Omega$ de ese extremo, generando errores de comunicación intermitentes (`U`-codes) cuando las vibraciones separan el cable cortado.
+
+### 2. Cortocircuito a Masa (Short to Ground)
+Ocurre cuando el cable **CAN Low** o **CAN High** entra en contacto directo con la carrocería metálica (0V).
+* **Efecto:** El bus deja de alternar sus voltajes diferenciales. Al caer a 0V, los transceptores de todos los módulos bloquean la transmisión para evitar daños, inmovilizando los sistemas digitales del vehículo.
+
+### 3. Cortocircuito a Voltaje de Batería (Short to Battery / +12V)
+Es el fallo más peligroso. Sucede cuando el mazo de cables se funde con una línea de corriente constante de +12V (Pin 16).
+* **Efecto:** El voltaje elevado destruye instantáneamente los chips transceptores CAN (como los circuitos TJA1050 o MCP2551) en los módulos conectados a esa línea, requiriendo reemplazo electrónico.
+
+## 2. Diagnóstico con Multímetro y Osciloscopio
+
+* **Resistencia en reposo (Batería desconectada):** 
+  * Red normal: **60 $\Omega$**.
+  * Si marca **120 $\Omega$**: Hay un circuito abierto en una de las resistencias terminales.
+  * Si marca **0 $\Omega$ o infinito ($\infty$)**: Hay un cortocircuito franco o resistencia infinita por corte total.
+
+## Conclusión
+
+Conocer los modos de fallo eléctrico del bus CAN acelera drásticamente la localización de arneses dañados en reparaciones complejas de carrocería y colisiones.

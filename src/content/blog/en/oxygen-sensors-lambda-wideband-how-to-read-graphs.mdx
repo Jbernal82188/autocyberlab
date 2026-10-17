@@ -1,0 +1,32 @@
+---
+title: "Oxygen Sensors (Lambda / Wideband): How to Read OBD2 Graphs"
+description: "Technical guide to interpreting Narrowband and Wideband O2 sensor live data graphs: rich/lean conditions, fuel trims, and catalytic converter efficiency."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "en"
+translationSlug: "sensores-oxigeno-lambda-wideband-como-leer-graficas"
+coverImage: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+When monitoring live engine data via an OBD2 scanner app, one of the most critical screens is the **oxygen (O2) sensor live graph**. Knowing how to interpret these voltage waveforms and Air-Fuel Ratio (AFR) metrics allows you to diagnose everything from vacuum leaks and lazy injectors to failing catalytic converters before a Check Engine light appears.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Wideband Air-Fuel Ratio vs. Narrowband O2 Sensors
+
+Modern engine layouts utilize distinct sensor types upstream and downstream of the catalytic converter:
+
+* **Wideband A/F Sensor (Upstream - Bank 1, Sensor 1):** Positioned before the catalyst, it measures exact air-fuel ratios linearly across a broad spectrum, typically displayed as a Lambda ($\lambda$) value where $1.0$ represents stoichiometric balance (14.7:1 for gasoline).
+* **Narrowband O2 Sensor (Downstream - Sensor 2):** Positioned after the catalyst, it acts strictly as a compliance monitor. Its voltage swings dynamically between **0.1V (lean condition)** and **0.9V (rich condition)**.
+
+## 2. Reading Diagnostic Waveforms on Your Scanner
+
+1. **Flatlined Upstream Sensor:** If the upstream sensor voltage freezes or fails to switch under throttle input, the internal heater circuit is likely dead, forcing the ECU into open-loop fueling.
+2. **Downstream Mirroring Upstream Waveforms:** If Sensor 2 mimics the rapid oscillations of Sensor 1, **the catalytic converter has failed** and lost its oxygen storage capacity, triggering a classic `P0420` efficiency fault.
+3. **Fuel Trim Correlation:** If Short Term Fuel Trims (STFT) continuously pull or add more than 10% fuel to correct the mixture, investigate unmetered intake air leaks or leaking fuel injectors.
+
+## Conclusion
+
+Mastering live O2 sensor waveform analysis via the OBD2 bus enables technicians to pinpoint combustion anomalies quickly without guesswork.
