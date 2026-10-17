@@ -1,0 +1,50 @@
+---
+title: "Cómo evitar el robo de tu auto por llave inteligente (Relay Attack)"
+description: "Descubre cómo funciona el ataque de amplificación de señal (Relay Attack) en llaves inteligentes Keyless Go y cómo blindar tu vehículo hoy mismo."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "es"
+translationSlug: "how-to-prevent-keyless-car-theft-relay-attack"
+coverImage: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Si tu vehículo cuenta con apertura sin llave y botón de encendido (*Keyless Entry / Push-to-Start*), la comodidad de abrir la puerta sin sacar el mando del bolsillo tiene un costo oculto de ciberseguridad: **los ataques de retransmisión por radiofrecuencia (conocidos técnicamente como *Relay Attacks*)**.
+
+En la actualidad, este método permite a los delincuentes abrir y arrancar un vehículo moderno en menos de 30 segundos sin forzar cerraduras, sin romper cristales y sin activar la alarma original.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Cómo funciona técnicamente un Relay Attack (Frecuencias LF y UHF)
+
+A diferencia de los mandos antiguos donde debías presionar un botón para emitir una señal, un sistema *Keyless* moderno funciona mediante un diálogo bidireccional constante entre las antenas del auto y el transpondedor de tu llave:
+
+1. **Búsqueda en Baja Frecuencia (LF - 125 kHz):** Las antenas en las manijas de tu auto emiten constantemente un pulso corto de baja frecuencia que solo tiene un alcance real de **1 a 1.5 metros**.
+2. **Respuesta en Ultra Alta Frecuencia (UHF - 315 MHz o 433.92 MHz):** Cuando tu llave entra en ese radio de 1.5 metros, "escucha" el pulso de 125 kHz, despierta y responde en UHF con su paquete criptográfico (*Rolling Code*) para destrabar los seguros y autorizar a la ECU el arranque del motor.
+
+### El engaño de los dos repetidores
+Los atacantes operan en pareja utilizando dos transceptores de radio definidos por software (SDR) con antenas amplificadoras:
+* **El Atacante A** se para junto a la puerta o ventana de tu casa (donde sueles dejar las llaves sobre una mesa). Su antena capta la señal de tu llave a través de la pared hasta a 8 metros de distancia.
+* **El Atacante B** se para junto a la manija de tu auto estacionado afuera. Su equipo retransmite el pulso de 125 kHz del auto hacia el Atacante A, y devuelve la respuesta criptográfica de tu llave en tiempo real. La computadora de carrocería (BCM) cree que estás parado al lado del vehículo y abre las puertas.
+
+## 2. Cuatro defensas reales para bloquear el ataque
+
+No necesitas cambiar de vehículo para eliminar por completo esta vulnerabilidad. Aplica estas capas de seguridad de menor a mayor nivel técnico:
+
+### 1. Jaula o Bolsa Faraday verificada (Bloqueo RF físico)
+Guardar tanto la llave principal como **la llave de repuesto** dentro de una bolsa Faraday con doble malla de níquel y cobre atenúa la señal de 125 kHz y 433 MHz en más de 80 dB.
+* **Prueba de verificación obligatoria:** Mete tu llave dentro de la bolsa Faraday cerrada, acércate a tu auto e intenta abrir la puerta tocando la manija. Si el auto abre, la bolsa es de mala calidad y no está aislando la banda LF.
+
+### 2. Desactivar la función Keyless desde la llave (Modo Sleep)
+Muchas marcas (como Toyota, Lexus, Mercedes-Benz, Mazda y BMW en modelos recientes) permiten apagar el transmisor de proximidad de la llave mediante una combinación de botones (por ejemplo, mantener presionado el botón de *Cerrar* y pulsar dos veces el botón de *Abrir*), o cuentan con un acelerómetro interno (sensor UWB/movimiento) que apaga la llave tras 5 minutos de estar inmóvil sobre una mesa.
+
+### 3. Instalar un Inmovilizador Digital CAN Bus (PIN en el volante)
+Dispositivos como *IGLA* o *Autowatch Ghost* se conectan de forma invisible a la red **CAN Bus** del vehículo. Aunque los ladrones logren clonar o retransmitir la señal de tu llave y encender el tablero, la ECU bloqueará la marcha o apagará el motor a menos que ingreses una secuencia personalizada utilizando los botones originales del volante (como subir volumen + control de crucero) antes de poner *Drive*.
+
+### 4. Nunca dejes las llaves a menos de 4 metros de la puerta principal
+El ladrillo y el yeso atenúan muy poco las ondas de 125 kHz. Ubica el llavero en el centro de la vivienda o dentro de una caja metálica cerrada lejos de ventanas exteriores.
+
+## Conclusión
+
+El protocolo de proximidad sin llave priorizó la comodidad del usuario sobre la validación de distancia física (*Time-of-Flight*). Mientras no todos los vehículos adopten chips de **Banda Ultra Ancha (UWB)** que miden el tiempo exacto de rebote de la señal en nanosegundos, aislar tus llaves en casa con protección Faraday y proteger el bus CAN sigue siendo la regla de oro.

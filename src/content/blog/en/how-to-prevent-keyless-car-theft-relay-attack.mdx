@@ -1,0 +1,48 @@
+---
+title: "How to Prevent Keyless Car Theft: Stopping RF Relay Attacks"
+description: "Understand how 125 kHz and 433 MHz key fob relay attacks work on push-to-start vehicles and how to secure your car with Faraday shielding and CAN Bus locks."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "en"
+translationSlug: "como-evitar-robo-llave-inteligente-relay-attack"
+coverImage: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+If your vehicle features Passive Keyless Entry and Push-to-Start ignition, the convenience of unlocking your doors without touching your key fob comes with a major cybersecurity vulnerability: **Radio Frequency (RF) Relay Attacks**.
+
+Using portable signal amplifiers, thieves can unlock and start a modern keyless vehicle parked in your driveway in under 30 seconds without breaking a window or triggering the factory alarm.
+
+<AdSlot slotId="1122334455" />
+
+## 1. How a Key Fob Relay Attack Works (LF & UHF Frequencies)
+
+Unlike traditional remote keys that only transmit when you press a physical button, a modern smart key system relies on continuous proximity polling between the vehicle's Body Control Module (BCM) and your key fob:
+
+1. **Low Frequency Challenge (LF - 125 kHz):** Antennas inside your door handles emit a short-range 125 kHz interrogation pulse designed to reach only **3 to 5 feet (1 to 1.5 meters)** from the car.
+2. **Ultra High Frequency Response (UHF - 315 MHz or 433.92 MHz):** When your key fob detects that 125 kHz wake-up signal, it replies over UHF with an encrypted rolling code handshake, unlocking the doors and authorizing the ECU to start the engine.
+
+### Bridging the Physical Gap
+Relay attackers work in pairs using transceivers with high-gain antennas:
+* **Operator A** stands near your front door or living room window holding a relay amplifier that captures the weak signal from the key fob sitting inside your house.
+* **Operator B** stands next to your car's door handle. The two devices bridge the 125 kHz challenge and UHF response across 50 to 100 yards in real time, tricking the vehicle into believing the key fob is right next to the driver's door.
+
+## 2. Four Proven Defenses Against Relay Theft
+
+### 1. Use a Dual-Layer Faraday Pouch (And Test It)
+Storing both your primary key fob and **your spare key** inside a shielded Faraday pouch lined with nickel-copper RF mesh blocks both the 125 kHz wake-up pulse and the 315/433 MHz response.
+* **Mandatory Verification Test:** Place your key fob inside the sealed Faraday pouch, walk up to your locked car, and pull the door handle. If the doors unlock, the pouch lacks proper low-frequency attenuation.
+
+### 2. Enable Key Fob Sleep Mode (Battery-Saving Mode)
+Many automakers (including Toyota, Lexus, Mercedes-Benz, and Mazda) allow you to manually disable the proximity transmitter on the fob using a button sequence—for example, holding down the **Lock** button while pressing **Unlock** twice until the LED flashes four times.
+
+### 3. Install a Digital CAN Bus Immobilizer
+Aftermarket digital immobilizers (such as *IGLA* or *Autowatch Ghost*) integrate directly into the vehicle's **CAN Bus** wiring harness. Even if thieves successfully relay your key fob signal and turn on the ignition, the engine will not start or shift into gear until you enter a custom PIN sequence using your factory steering wheel buttons.
+
+### 4. Relocate Keys Away from Exterior Entryways
+Drywall, brick, and glass offer minimal attenuation against 125 kHz magnetic induction fields. Never store key fobs on hooks or tables within 15 feet of your front door or garage wall.
+
+## Conclusion
+
+Until all vehicles transition to **Ultra-Wideband (UWB)** key fobs with cryptographic Time-of-Flight distance bounding, combining a tested Faraday enclosure at home with a secondary CAN Bus immobilizer remains the most reliable way to defeat wireless relay theft.
