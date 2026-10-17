@@ -1,0 +1,42 @@
+---
+title: "Fleet Cybersecurity & Connected Vehicles: Telematics Risks"
+description: "Cybersecurity analysis of telematics control units (TCUs), security gateways, and remote attack vectors targeting commercial vehicle fleets."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "en"
+translationSlug: "ciberseguridad-flotas-vehiculos-conectados-vulnerabilidades"
+coverImage: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+The concept of the **connected vehicle** no longer applies solely to luxury passenger cars; today, entire fleets of commercial freight trucks, city buses, and delivery vans rely on permanent telematics gateways connected to 4G/5G cellular networks and cloud servers in real time.
+
+While telematics optimize fleet routing, fuel efficiency, and remote engine diagnostics, they also introduce a critical attack surface: **commercial fleet cybersecurity**.
+
+<AdSlot slotId="1122334455" />
+
+## 1. The Attack Surface: From Cellular Networks to the CAN Bus
+
+Unlike traditional proximity attacks that require physical access to the key fob or OBD2 port, connected vehicle vulnerabilities can be exploited **remotely from anywhere in the world** via cellular telematics infrastructure.
+
+### Primary Attack Vectors
+1. **Outdated Telematics Control Units (TCUs):** Many aftermarket and OEM GPS tracking units run on embedded Linux operating systems featuring unpatched kernel vulnerabilities and default root backdoor accounts.
+2. **Third-Party Fleet Management SaaS Platforms:** If an attacker compromises administrator credentials on a cloud dashboard managing hundreds of commercial trucks, they can theoretically dispatch remote shutdown commands over the cellular network.
+3. **In-Cabin WiFi Hotspots:** Commercial vehicles offering passenger or driver WiFi sometimes share internal routing subnets with powertrain control networks if proper network zoning and automotive firewalls are missing.
+
+## 2. The Role of Automotive Security Gateways (SGW)
+
+To block unauthorized remote access, automakers and global regulations enforce strict **Security Gateways (SGW)**.
+
+An SGW acts as a cryptographic firewall sitting between external interfaces (the OBD2 port and cellular modems) and the internal vehicle networks. Any external diagnostic tool or telematics packet must complete a cryptographic certificate handshake before reading or writing to powertrain ECUs.
+
+## 3. Mitigation Strategies for Commercial Fleet Operators
+
+1. **Strict Network Segmentation:** Infotainment displays and cabin WiFi routers must be isolated via virtual network zoning (VLANs) away from safety-critical powertrain CAN buses (braking, steering, and engine management).
+2. **Secure Over-The-Air (OTA) Updates:** Firmware updates for telematics units must require asymmetric cryptographic signatures to prevent malicious firmware tampering.
+3. **CAN Bus Intrusion Detection Systems (IDS):** Deploying real-time anomaly detection algorithms that monitor hexadecimal bus traffic patterns and alert security operations centers to suspicious message injection.
+
+## Conclusion
+
+The shift toward fully connected commercial fleets requires treating automotive cybersecurity with the same rigorous standards applied to corporate cloud enterprise servers.

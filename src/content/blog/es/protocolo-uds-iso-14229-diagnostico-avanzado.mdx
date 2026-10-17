@@ -1,0 +1,46 @@
+---
+title: "Protocolo UDS (ISO 14229): Qué es y diagnóstico avanzado"
+description: "Guía técnica del protocolo Unified Diagnostic Services (UDS): tramas hexadecimales, servicios de sesión (22, 2E, 31) y escaneo electrónico avanzado."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "es"
+translationSlug: "uds-protocol-iso-14229-advanced-automotive-diagnostics"
+coverImage: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Si alguna vez has conectado un escáner de nivel profesional (como VCDS, Techstream, INPA o herramientas OEM) para realizar una calibración de cuerpo de aceleración, purgar el módulo ABS electrónicamente o programar un inyector diésel nuevo, has interactuado directamente con el **protocolo UDS (Unified Diagnostic Services)**.
+
+Regulado bajo la norma internacional **ISO 14229**, UDS es el estándar de comunicación de diagnóstico avanzado utilizado en prácticamente todos los vehículos modernos de marcas europeas, asiáticas y americanas a través del bus CAN.
+
+<AdSlot slotId="1122334455" />
+
+## 1. De OBD2 básico a UDS: ¿Cuál es la diferencia?
+
+Mientras que el diagnóstico OBD2 tradicional (estándar SAE J1979) está limitado estrictamente a emisiones y códigos de falla universales de motor que empiezan por `P`, **el protocolo UDS es universal para todos los sistemas del vehículo** (motor, transmisión, airbag, confort, climatizador, tablero y dirección asistida).
+
+UDS opera sobre la capa de transporte **ISO 15765-4 (CAN)** y permite enviar comandos complejos mediante tramas hexadecimales organizadas por servicios (*Services*).
+
+## 2. Los Servicios UDS Más Importantes en el Diagnóstico Diario
+
+En UDS, cada solicitud enviada por el escáner (Request) utiliza un identificador de servicio, y la computadora responde sumando `0x40` al código de servicio si la orden fue aceptada (Positive Response). Los servicios clave son:
+
+* **Servicio 0x10 (Diagnostic Session Control):** Permite cambiar el nivel de acceso en la computadora. Por defecto el auto arranca en *Default Session*. Para realizar ajustes profundos (como codificación o flasheo), el escáner debe solicitar una **Extended Diagnostic Session (`10 03`)** o **Programming Session (`10 02`)**.
+* **Servicio 0x22 (Read Data By Identifier - RDBI):** Es el comando para leer datos en tiempo real mediante un identificador de 2 bytes (DID). Por ejemplo, consultar el DID `F1 90` para leer el Número de Identificación Vehicular (VIN) o consultar sensores específicos del motor.
+* **Servicio 0x2E (Write Data By Identifier - WDBI):** Permite escribir parámetros directamente en la memoria de la ECU (por ejemplo, al codificar un nuevo inyector common-rail o registrar el cambio de una batería AGM).
+* **Servicio 0x31 (Routine Control):** Ejecuta rutinas especiales dentro de un módulo, como iniciar la purga automática de válvulas solenoides en el bloque hidráulico del ABS o calibrar el sensor de ángulo de giro del volante (SAS).
+* **Servicio 0x11 (ECU Reset):** Ordena un reinicio físico del módulo (Hard Reset `11 01` o Key Off/On Reset) para que los cambios codificados entren en vigor.
+
+## 3. El Sistema de Seguridad: Security Access (Servicios 27)
+
+Para evitar que cualquier dispositivo conectado al puerto OBD2 modifique parámetros críticos de seguridad o inmovilizadores, UDS implementa un mecanismo de desafío-respuesta (*Challenge-Response*) a través del **Servicio 0x27**:
+
+1. El escáner solicita acceso de seguridad: `27 01` (Seed Request).
+2. El módulo responde enviando una semilla aleatoria (un número hexadecimal de varios bytes, por ejemplo: `67 01 A3 F4`).
+3. El software de diagnóstico calcula una clave matemática secreta utilizando un algoritmo propietario de la marca y la devuelve: `27 02 [Clave Calculada]`.
+4. Si la clave coincide con la fórmula interna del módulo, se conceden los privilegios de escritura.
+
+## Conclusión
+
+Entender cómo opera el protocolo UDS bajo la norma ISO 14229 te permite comprender la lógica detrás de las codificaciones electrónicas avanzadas, la diagnosis multimodular y las herramientas de servicio profesional en talleres modernos.

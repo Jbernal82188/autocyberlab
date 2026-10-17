@@ -1,0 +1,46 @@
+---
+title: "UDS Protocol (ISO 14229): Advanced Automotive Diagnostics"
+description: "Technical guide to Unified Diagnostic Services (UDS) over CAN Bus: hexadecimal request frames, diagnostic sessions, and services 22, 2E, 31."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "en"
+translationSlug: "protocolo-uds-iso-14229-diagnostico-avanzado"
+coverImage: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+If you have ever used an advanced diagnostic tool (such as VCDS, Techstream, INPA, or factory OEM software) to perform an electronic throttle body adaptation, bleed an ABS hydraulic block, or code a new diesel fuel injector, you have interacted directly with the **UDS Protocol (Unified Diagnostic Services)**.
+
+Regulated under the **ISO 14229** international standard, UDS is the foundational communication protocol used for advanced electronic diagnostics across almost all modern European, Asian, and American vehicles communicating over the CAN Bus.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Basic OBD2 vs. UDS: What Is the Difference?
+
+While traditional OBD2 diagnostics (SAE J1979 standard) is strictly restricted to emissions-related engine faults beginning with `P`, **UDS spans every electronic control unit on the vehicle**—including transmission, airbags, body control modules, HVAC, instrument clusters, and power steering.
+
+UDS runs on top of the **ISO 15765-4 (CAN)** transport layer, utilizing standardized hexadecimal request and response service frames.
+
+## 2. Key UDS Services in Daily Automotive Diagnostics
+
+Every UDS request starts with a Service ID (SID), and modules respond by adding `0x40` to the service byte upon success (Positive Response). Essential services include:
+
+* **Service 0x10 (Diagnostic Session Control):** Switches the module between operating modes. Vehicles boot in *Default Session*. To perform coding or flashing, diagnostic software must request an **Extended Diagnostic Session (`10 03`)** or **Programming Session (`10 02`)**.
+* **Service 0x22 (Read Data By Identifier - RDBI):** Reads live data or static configuration parameters using 2-byte Data Identifiers (DIDs). For instance, querying DID `F1 90` retrieves the Vehicle Identification Number (VIN).
+* **Service 0x2E (Write Data By Identifier - WDBI):** Writes configuration parameters directly into module non-volatile memory (e.g., coding injector IMA correction codes or registering a new AGM battery).
+* **Service 0x31 (Routine Control):** Triggers internal module routines, such as initiating automated ABS solenoid valve bleeding or calibrating a steering angle sensor (SAS).
+* **Service 0x11 (ECU Reset):** Issues a hard reset (`11 01`) or key cycle reset to finalize module coding changes.
+
+## 3. Security Access Protocol (Service 0x27)
+
+To prevent unauthorized devices connected to the OBD2 port from altering immobilizer parameters or safety configurations, UDS enforces a challenge-response authentication mechanism via **Service 0x27**:
+
+1. The diagnostic tool requests a security seed: `27 01`.
+2. The module replies with a cryptographic seed (e.g., `67 01 A3 F4`).
+3. The diagnostic software computes a secret mathematical key using the automaker's proprietary seed-key algorithm and transmits it back: `27 02 [Calculated Key]`.
+4. If the computed key matches the module's internal validation, high-privilege write access is unlocked.
+
+## Conclusion
+
+Understanding how the UDS protocol operates under ISO 14229 demystifies advanced electronic module coding, bidirectional controls, and professional diagnostic functions in modern vehicle engineering.
