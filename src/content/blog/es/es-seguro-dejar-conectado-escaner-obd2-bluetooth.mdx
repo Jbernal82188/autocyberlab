@@ -1,0 +1,49 @@
+---
+title: "¿Es seguro dejar un escáner OBD2 Bluetooth conectado siempre?"
+description: "Descubre los riesgos reales de batería y ciberseguridad al dejar tu adaptador OBD2 Bluetooth o WiFi conectado 24/7 y cómo proteger la ECU de tu vehículo."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "es"
+translationSlug: "is-it-safe-to-leave-obd2-bluetooth-scanner-plugged-in"
+coverImage: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Si te gusta monitorear la temperatura del refrigerante en tiempo real, revisar los ajustes de combustible (*Fuel Trims*) o medir la presión del turbo después de una modificación usando aplicaciones como Torque Pro, OBDFusion o Car Scanner, seguramente te has hecho esta pregunta: **¿puedo dejar el adaptador OBD2 conectado para siempre o debo quitarlo cada vez que apago el auto?**
+
+La respuesta corta es **no deberías dejar un adaptador genérico conectado de forma permanente**. Aunque no va a quemar tu computadora de motor (ECU) de inmediato, mantener un dongle OBD2 enchufado 24/7 abre dos frentes de riesgo muy reales: el drenaje silencioso de tu batería y una brecha crítica de ciberseguridad en la red interna de tu vehículo.
+
+<AdSlot slotId="1122334455" />
+
+## 1. El problema eléctrico: Por qué el puerto OBD2 nunca se apaga
+
+Para entender el primer riesgo, hay que mirar el esquema eléctrico del conector estándar SAE J1962 (el puerto de 16 pines ubicado debajo del volante).
+
+A diferencia del encendedor de 12V o los puertos USB multimedia —que cortan la energía cuando apagas el contacto—, **el Pin 16 del puerto OBD2 está conectado directamente al polo positivo de la batería (+12V constantes)**. Está diseñado así por norma internacional para que los equipos de diagnóstico en taller mantengan alimentación incluso cuando el motor no da arranque.
+
+### Cuánta batería consume realmente un adaptador ELM327
+* **Clones económicos (ELM327 genéricos):** Carecen de un circuito de suspensión (*sleep mode*) real. Consumen entre **40 mA y 120 mA** de forma continua. Si dejas el auto estacionado durante 4 o 5 días sin moverlo, este consumo parásito descargará la batería.
+* **Adaptadores inteligentes (OBDLink MX+, Vgate vLinker):** Cuentan con modos de ahorro automático que reducen el consumo a **menos de 3 mA** tras 15 minutos sin tráfico en el bus de datos. A nivel eléctrico son seguros, pero el riesgo informático sigue presente si no tienen autenticación física.
+
+## 2. El riesgo de ciberseguridad: Acceso directo al CAN Bus
+
+Cuando conectas un escáner OBD2 inalámbrico, estás conectando un transceptor de radiofrecuencia directamente a la red **CAN Bus (Controller Area Network)** de tu vehículo.
+
+En los vehículos modernos, por esa misma red viajan los paquetes hexadecimales que controlan no solo las revoluciones o los sensores del motor, sino también el módulo de control de carrocería (BCM), los seguros de las puertas, el cuadro de instrumentos y el inmovilizador.
+
+### Tres vulnerabilidades reales de los adaptadores inalámbricos
+
+* **PIN por defecto sin cifrado:** Más del 90% de los adaptadores Bluetooth económicos utilizan códigos fijos de fábrica como `1234` o `0000` que no se pueden cambiar. Las versiones WiFi suelen levantar un punto de acceso abierto sin contraseña WPA2.
+* **Emisión continua en estacionamientos:** Como el Pin 16 sigue alimentando el chip toda la noche, la antena Bluetooth o WiFi sigue transmitiendo hacia el exterior. Cualquier persona con una laptop o teléfono a menos de 10 metros puede detectar el adaptador.
+* **Inyección de tramas CAN:** Mediante comandos `AT` estándar, un atacante conectado a un adaptador desprotegido puede inyectar paquetes en el bus de baja o media velocidad para destrabar seguros o silenciar alarmas en autos sin módulo *Security Gateway* (SGW).
+
+## 3. Cómo usar telemetría OBD2 sin poner en riesgo tu vehículo
+
+1. **Usa un cable extensor OBD2 con interruptor físico (Switch On/Off):** Cuesta menos de 10 dólares, se conecta al puerto original y te permite cortar físicamente la línea de +12V del Pin 16 con un botón cuando apagas el motor.
+2. **Elige adaptadores con botón físico de emparejamiento:** Equipos como el *OBDLink MX+* bloquean cualquier intento de conexión Bluetooth nueva a menos que presiones físicamente el botón en el dispositivo.
+3. **Instala una cerradura mecánica para el puerto OBD2:** Si estacionas en la vía pública, una cubierta metálica con llave impide que conecten programadores de llaves por cable en caso de intento de robo.
+
+## Conclusión
+
+Si utilizas un escáner genérico, **desconéctalo siempre al bajar del vehículo**. Si buscas una instalación fija para monitorear relojes en tiempo real en tu proyecto de tuning, acompáñala siempre de un interruptor de corte de corriente o un transceptor con botón de seguridad física.

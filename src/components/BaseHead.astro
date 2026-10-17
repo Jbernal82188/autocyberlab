@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  lang: 'es' | 'en';
+  translationSlug?: string;
+}
+
+const { title, description, lang, translationSlug } = Astro.props;
+const siteUrl = Astro.site || 'https://autocyberlab.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const alternateLang = lang === 'es' ? 'en' : 'es';
+const alternateURL = translationSlug 
+  ? new URL(`/${alternateLang}/${translationSlug}/`, siteUrl)
+  : new URL(`/${alternateLang}/`, siteUrl);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{title} | AutoCyberLab</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- SEO Internacional Hreflang -->
+<link rel="alternate" hreflang={lang} href={canonicalURL} />
+<link rel="alternate" hreflang={alternateLang} href={alternateURL} />
+<link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonicalURL : alternateURL} />

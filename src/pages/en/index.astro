@@ -1,0 +1,225 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === 'en'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featuredPost = posts[0];
+const sidePosts = posts.slice(1, 5);
+
+const categoryLabels: Record<string, string> = {
+  'cybersecurity': 'Cybersecurity',
+  'ecu-tuning': 'ECU & Tuning',
+  'obd2-diagnostics': 'OBD2 Diagnostics'
+};
+---
+
+<html lang="en" class="dark">
+  <head>
+    <BaseHead 
+      title="Automotive Cybersecurity, ECU Tuning and OBD2 Diagnostics" 
+      description="The leading technical portal on vehicle cybersecurity, CAN Bus protocol, ECU reprogramming and advanced OBD2 diagnostics." 
+      lang="en" 
+    />
+  </head>
+  <body class="bg-[#0A0D12] text-neutral-100 min-h-screen flex flex-col font-sans">
+    <Header lang="en" />
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full">
+      
+      <!-- TECHCRUNCH-STYLE HERO SECTION (Top Story + "Latest" Column) -->
+      {featuredPost && (
+        <section id="hero" class="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 border-b border-neutral-800">
+          
+          <!-- Top Story (8 columns) -->
+          <div class="lg:col-span-8 group">
+            <a href={`/en/${featuredPost.slug.replace(/^en\//, '')}/`} class="block">
+              <div class="relative overflow-hidden bg-neutral-900 aspect-[16/9] mb-5 border border-neutral-800">
+                <img 
+                  src={featuredPost.data.coverImage} 
+                  alt={featuredPost.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+                <span class="absolute top-4 left-4 bg-[#00D36C] text-black text-xs font-black uppercase tracking-widest px-3 py-1">
+                  {categoryLabels[featuredPost.data.category] || featuredPost.data.category}
+                </span>
+              </div>
+
+              <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.1] group-hover:text-[#00D36C] transition mb-3">
+                {featuredPost.data.title}
+              </h1>
+              <p class="text-neutral-400 text-base sm:text-lg mb-4 line-clamp-2">
+                {featuredPost.data.description}
+              </p>
+              <div class="flex items-center gap-3 text-xs font-mono text-neutral-500 uppercase">
+                <span class="text-white font-bold">By Juan David Bernal</span>
+                <span>•</span>
+                <time>{featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                <span>•</span>
+                <span class="text-[#00D36C]">{featuredPost.data.readingTime} read</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Right Column, TechCrunch-style "LATEST / TRENDING" (4 columns) -->
+          <div class="lg:col-span-4 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-neutral-800 pt-6 lg:pt-0 lg:pl-8">
+            <div>
+              <div class="flex items-center gap-2 mb-6">
+                <span class="w-3 h-3 bg-[#00D36C] inline-block"></span>
+                <h2 class="text-sm font-black uppercase tracking-widest text-white">Most Read in the Lab</h2>
+              </div>
+
+              <div class="divide-y divide-neutral-800/80">
+                {(sidePosts.length > 0 ? sidePosts : [featuredPost]).map((post, idx) => {
+                  const cleanSlug = post.slug.replace(/^en\//, '');
+                  return (
+                    <article class="py-4 first:pt-0 group">
+                      <span class="text-[11px] font-mono uppercase font-bold text-[#00D36C] block mb-1">
+                        0{idx + 1} // {categoryLabels[post.data.category]}
+                      </span>
+                      <a href={`/en/${cleanSlug}/`}>
+                        <h3 class="text-lg font-extrabold text-white group-hover:text-[#00D36C] transition leading-snug mb-1.5">
+                          {post.data.title}
+                        </h3>
+                      </a>
+                      <span class="text-xs text-neutral-500 font-mono">
+                        {post.data.readingTime} read
+                      </span>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+
+            <!-- Technical info box / Newsletter -->
+            <div class="mt-8 bg-[#11161F] border border-neutral-800 p-5">
+              <span class="text-[11px] font-mono uppercase text-[#00D36C] font-bold block mb-1">Technical Report</span>
+              <h4 class="text-base font-extrabold text-white mb-2">CAN Bus & ECU Lab</h4>
+              <p class="text-xs text-neutral-400 mb-3 leading-relaxed">
+                Applied research on SAE J1962 protocols, immobilizer key security and engine telemetry.
+              </p>
+              <div class="text-[11px] font-mono text-neutral-500 border-t border-neutral-800 pt-2">
+                STATUS: <span class="text-[#00D36C]">ONLINE // GLOBAL EDITION</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      )}
+
+      <!-- LATEST ARTICLES GRID (Magazine-style feed) -->
+      <section class="py-12">
+        <div class="flex items-center justify-between mb-8">
+          <h2 id="grid-title" class="text-2xl font-black uppercase tracking-tight text-white flex items-center gap-3">
+            <span class="w-2 h-6 bg-[#00D36C] inline-block"></span>
+            <span>Latest Research & Guides</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => {
+            const cleanSlug = post.slug.replace(/^en\//, '');
+            return (
+              <article data-category={post.data.category} class="post-card bg-[#11161F] border border-neutral-800 hover:border-[#00D36C] transition flex flex-col group">
+                <a href={`/en/${cleanSlug}/`} class="block overflow-hidden aspect-[16/10] bg-neutral-900 relative">
+                  <img 
+                    src={post.data.coverImage} 
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <span class="absolute bottom-3 left-3 bg-black/90 border border-[#00D36C] text-[#00D36C] text-[10px] font-mono font-bold uppercase px-2.5 py-0.5">
+                    {categoryLabels[post.data.category]}
+                  </span>
+                </a>
+
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                  <div>
+                    <a href={`/en/${cleanSlug}/`}>
+                      <h3 class="text-xl font-extrabold text-white group-hover:text-[#00D36C] transition leading-snug mb-3">
+                        {post.data.title}
+                      </h3>
+                    </a>
+                    <p class="text-neutral-400 text-sm line-clamp-3 mb-4">
+                      {post.data.description}
+                    </p>
+                  </div>
+
+                  <div class="pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs font-mono text-neutral-500">
+                    <span>Juan D. Bernal</span>
+                    <span class="text-[#00D36C]">{post.data.readingTime}</span>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FULL FOOTER WITH LEGAL PAGES FOR ADSENSE -->
+    <footer class="bg-black border-t border-neutral-800 py-12 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-[#00D36C] text-black font-black font-mono text-lg px-2 py-0.5">ACL</div>
+            <span class="text-xl font-black text-white">AutoCyber<span class="text-[#00D36C]">Lab</span></span>
+          </div>
+          <p class="text-neutral-400 text-sm max-w-sm leading-relaxed">
+            Specialized portal on automotive cybersecurity, CAN Bus network protocols, electronic engine reprogramming (ECU) and advanced OBD2 diagnostics.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider text-xs mb-4 text-[#00D36C]">Sections</h4>
+          <ul class="space-y-2 text-neutral-400">
+            <li><a href="/en/" class="hover:text-white">Vehicle Cybersecurity</a></li>
+            <li><a href="/en/" class="hover:text-white">ECU Reprogramming & Tuning</a></li>
+            <li><a href="/en/" class="hover:text-white">OBD2 & CAN Bus Diagnostics</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white uppercase tracking-wider text-xs mb-4 text-[#00D36C]">Legal & AdSense</h4>
+          <ul class="space-y-2 text-neutral-400">
+            <li><a href="/en/about/" class="hover:text-white">About Us</a></li>
+            <li><a href="/en/privacy/" class="hover:text-white">Privacy & Cookie Policy</a></li>
+            <li><a href="/en/contact/" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-10 pt-6 border-t border-neutral-900 text-xs text-neutral-600 flex justify-between">
+        <span>© {new Date().getFullYear()} AutoCyberLab. All rights reserved.</span>
+        <span>Bogotá • Miami • Madrid</span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const params = new URLSearchParams(window.location.search);
+      const activeCat = params.get('cat');
+      const names = {
+        'cybersecurity': 'Vehicle Cybersecurity',
+        'ecu-tuning': 'ECU & Tuning',
+        'obd2-diagnostics': 'OBD2 Diagnostics'
+      };
+
+      if (activeCat && names[activeCat]) {
+        const hero = document.getElementById('hero');
+        if (hero) hero.style.display = 'none';
+
+        const title = document.getElementById('grid-title');
+        if (title) {
+          title.innerHTML = `<span class="w-2 h-6 bg-[#00D36C] inline-block"></span> Category: <span class="text-[#00D36C]">${names[activeCat]}</span> <a href="/en/" class="ml-4 text-xs font-mono text-neutral-400 underline hover:text-white">× View all</a>`;
+        }
+
+        document.querySelectorAll('.post-card').forEach((card) => {
+          if (card.getAttribute('data-category') !== activeCat) {
+            card.style.display = 'none';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

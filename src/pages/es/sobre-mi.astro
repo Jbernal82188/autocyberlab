@@ -1,0 +1,75 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+---
+
+<html lang="es" class="dark">
+  <head>
+    <BaseHead 
+      title="Sobre Nosotros" 
+      description="Conoce al equipo e ingeniería detrás de AutoCyberLab: ciberseguridad automotriz, análisis de redes CAN Bus y reprogramación de ECU." 
+      lang="es"
+      translationSlug="about"
+    />
+  </head>
+  <body class="bg-[#0A0D12] text-neutral-200 min-h-screen flex flex-col font-sans">
+    <Header lang="es" alternateUrl="/en/about/" />
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-14 flex-grow w-full">
+      <div class="mb-10 border-b border-neutral-800 pb-8">
+        <span class="bg-[#00D36C] text-black text-xs font-black font-mono uppercase tracking-widest px-3 py-1">
+          PERFIL EDITORIAL // E-E-A-T
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-4 mb-4">
+          Sobre AutoCyber<span class="text-[#00D36C]">Lab</span>
+        </h1>
+        <p class="text-lg text-neutral-400 leading-relaxed">
+          Investigación independiente en la intersección de la ingeniería de software, la electrónica automotriz (OBD2 / ECU) y la ciberseguridad vehicular.
+        </p>
+      </div>
+
+      <div class="space-y-8 text-neutral-300 leading-relaxed text-lg">
+        <section>
+          <h2 class="text-2xl font-black text-white border-l-4 border-[#00D36C] pl-4 mb-4">
+            Nuestra Misión
+          </h2>
+          <p class="mb-4">
+            Los vehículos modernos ya no son simples máquinas mecánicas; son redes de computadoras rodantes gobernadas por hasta 100 Unidades de Control Electrónico (ECUs), protocolos de bus de datos de alta velocidad y millones de líneas de código.
+          </p>
+          <p>
+            En <strong>AutoCyberLab</strong> traducimos conceptos complejos de diagnóstico electrónico, telemetría en tiempo real, reprogramación segura de motores y defensa contra vulnerabilidades inalámbricas en guías técnicas verificables, pensadas tanto para entusiastas del tuning como para propietarios e ingenieros.
+          </p>
+        </section>
+
+        <section class="bg-[#11161F] border border-neutral-800 p-6 sm:p-8 my-8">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#00D36C] text-black font-black font-mono text-lg flex items-center justify-center">
+              JB
+            </div>
+            <div>
+              <h3 class="text-xl font-black text-white">Juan David Bernal</h3>
+              <span class="text-xs font-mono uppercase text-[#00D36C]">Fundador & Editor Técnico // Ingeniería de Sistemas</span>
+            </div>
+          </div>
+          <p class="text-sm sm:text-base text-neutral-300 leading-relaxed mb-4">
+            Estudiante de Ingeniería de Sistemas, desarrollador de software y apasionado por la personalización automotriz y la ciberseguridad de redes. Creé <strong>AutoCyberLab</strong> tras detectar una desconexión enorme en el sector: los portales de mecánica tradicional rara vez explican cómo viajan las tramas hexadecimales por el bus CAN o cómo proteger una llave inteligente de ataques de radiofrecuencia, mientras que los papers de ciberseguridad suelen ser inaccesibles para el entusiasta de los motores.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-neutral-800 text-xs font-mono text-neutral-400">
+            <div><strong class="text-white block">ENFOQUE 01:</strong> Seguridad en Redes CAN Bus y OBD-II</div>
+            <div><strong class="text-white block">ENFOQUE 02:</strong> Telemetría, Sensores y Diagnóstico DTC</div>
+            <div><strong class="text-white block">ENFOQUE 03:</strong> Calibración Electrónica y ECU Tuning</div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-black text-white border-l-4 border-[#00D36C] pl-4 mb-4">
+            Estándares Editoriales y Ética de Seguridad
+          </h2>
+          <p>
+            Todo el contenido publicado en este portal tiene un propósito estrictamente educativo, de diagnóstico y de <strong>defensa preventiva (Blue Team / White Hat)</strong>. Nuestras guías se basan en la documentación de estándares internacionales como <code>SAE J1962</code>, <code>ISO 15765-4 (CAN)</code> e <code>ISO/SAE 21434</code> para ayudar a los usuarios a auditar, diagnosticar y proteger sus propios vehículos.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

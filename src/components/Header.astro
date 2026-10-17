@@ -1,0 +1,68 @@
+---
+interface Props {
+  lang: 'es' | 'en';
+  alternateUrl?: string;
+}
+
+const { lang, alternateUrl } = Astro.props;
+const targetLang = lang === 'es' ? 'en' : 'es';
+const switchHref = alternateUrl || `/${targetLang}/`;
+
+const navItems = lang === 'es' 
+  ? [
+      { name: 'Ciberseguridad', href: `/es/?cat=cybersecurity` },
+      { name: 'ECU & Tuning', href: `/es/?cat=ecu-tuning` },
+      { name: 'Diagnóstico OBD2', href: `/es/?cat=obd2-diagnostics` },
+    ]
+  : [
+      { name: 'Cybersecurity', href: `/en/?cat=cybersecurity` },
+      { name: 'ECU & Tuning', href: `/en/?cat=ecu-tuning` },
+      { name: 'OBD2 Diagnostics', href: `/en/?cat=obd2-diagnostics` },
+    ];
+---
+
+<!-- Barra superior de estado técnico -->
+<div class="bg-[#00D36C] text-black text-[11px] font-bold tracking-widest uppercase py-1 px-4">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <span>⚡ AUTOCYBERLAB // AUTOMOTIVE SECURITY & ECU INTELLIGENCE</span>
+    <span class="hidden sm:inline font-mono">CAN BUS • OBD-II • TELEMETRY • REMAPPING</span>
+  </div>
+</div>
+
+<!-- Header principal estilo TechCrunch -->
+<header class="border-b border-neutral-800 bg-[#0A0D12]/95 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    
+    <!-- Logo Estilo TechCrunch -->
+    <div class="flex items-center gap-10">
+      <a href={`/${lang}/`} class="flex items-center gap-2 group">
+        <div class="bg-[#00D36C] text-black font-black font-mono text-xl px-2.5 py-1 tracking-tighter group-hover:bg-white transition">
+          ACL
+        </div>
+        <span class="text-2xl font-black tracking-tighter text-white">
+          AutoCyber<span class="text-[#00D36C]">Lab</span>
+        </span>
+      </a>
+
+      <!-- Categorías del portal -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-bold uppercase tracking-wider text-neutral-300">
+        {navItems.map((item) => (
+          <a href={item.href} class="hover:text-[#00D36C] transition-colors py-2 border-b-2 border-transparent hover:border-[#00D36C]">
+            {item.name}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- Selector de Idioma y Suscripción -->
+    <div class="flex items-center gap-3">
+      <a 
+        href={switchHref} 
+        class="px-3.5 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-[#00D36C] text-xs font-mono font-bold uppercase text-white transition flex items-center gap-1.5"
+      >
+        <span>{lang === 'es' ? '🇺🇸 EN' : '🇪🇸 ES'}</span>
+      </a>
+    </div>
+
+  </div>
+</header>

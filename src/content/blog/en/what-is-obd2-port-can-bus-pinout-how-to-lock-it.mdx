@@ -1,0 +1,46 @@
+---
+title: "OBD2 Port & CAN Bus Pinout: Complete Diagnostic and Security Guide"
+description: "Master the SAE J1962 OBD2 connector pinout: how CAN High (Pin 6) and CAN Low (Pin 14) work, diagnostic protocols, and how to block key theft."
+pubDate: 2026-10-15
+category: "obd2-diagnostics"
+lang: "en"
+translationSlug: "que-es-puerto-obd2-pines-can-bus-como-protegerlo"
+coverImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Located underneath the dashboard of every vehicle sold in the United States since 1996 (and across Europe and Latin America since the early 2000s) is the 16-pin trapezoidal **SAE J1962 connector**, universally known as the **OBD2 port**.
+
+For tuners and diagnostic technicians, this port is the gateway to reading Diagnostic Trouble Codes (DTCs), logging live sensor data, and flashing ECUs. However, for modern car thieves, an unprotected OBD2 port is the fastest way to program a blank key fob in under 90 seconds.
+
+<AdSlot slotId="1122334455" />
+
+## 1. The SAE J1962 OBD2 Pinout Explained
+
+While several pins are left open for manufacturer-specific networks, **5 universal pins** form the backbone of modern CAN Bus diagnostics on any post-2008 vehicle:
+
+* **Pin 4 (Chassis Ground):** Connected directly to the vehicle's metal chassis.
+* **Pin 5 (Signal Ground):** Dedicated low-noise ground reference for digital communication logic.
+* **Pin 6 (CAN High - ISO 15765-4):** High-speed CAN Bus positive differential line (switches between 2.5V recessive and 3.5V dominant).
+* **Pin 14 (CAN Low - ISO 15765-4):** High-speed CAN Bus negative differential line (switches between 2.5V recessive and 1.5V dominant).
+* **Pin 16 (+12V Constant Battery Power):** Always-on 12-volt power supplied directly from the battery via an interior fuse.
+
+### How to Test Your CAN Bus Network with a Multimeter
+If your OBD2 scanner fails to communicate with the ECU, disconnect the car battery, wait 3 minutes, and measure the **resistance (Ohms) across Pin 6 and Pin 14**:
+* **60 Ohms ($\Omega$) Reading:** Your physical high-speed CAN backbone is healthy (two $120\ \Omega$ termination resistors wired in parallel at opposite ends of the bus).
+* **120 Ohms ($\Omega$) Reading:** You have an open circuit in the twisted-pair wiring or a disconnected terminating module.
+
+## 2. How Thieves Exploit the OBD2 Port
+
+Once a thief gains physical entry into a push-to-start vehicle, they plug a handheld key programmer into the OBD2 port. Drawing 12V power from Pin 16 and communicating over Pins 6 and 14, the device exploits immobilizer diagnostic routines to register a new blank smart key and start the engine.
+
+## 3. Three Proven Ways to Secure Your OBD2 Port
+
+1. **Install a CNC Aluminum OBD2 Port Lock:** A mechanical lock housing clamps over the factory SAE J1962 plug using security screws or a barrel key, physically blocking access to the pins.
+2. **Relocate the Real Port and Install a Dummy Socket:** Unclip the factory OBD2 connector, tuck it deep behind the dash trim, and mount a dummy port in the factory bracket wired only to Pin 4 (Ground) and Pin 16 (+12V). A thief's tool will power on but fail to reach the CAN Bus.
+3. **Add a Hidden Cutoff Switch on Pin 16:** Interrupt the +12V power supply on Pin 16 with a concealed toggle switch so diagnostic tools cannot power up without your knowledge.
+
+## Conclusion
+
+Understanding the electrical pinout of your OBD2 port not only speeds up electrical troubleshooting when diagnosing `U0100` communication faults, but also gives you the knowledge to lock down your vehicle's most vulnerable physical port.

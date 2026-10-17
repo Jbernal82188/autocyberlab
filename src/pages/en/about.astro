@@ -1,0 +1,75 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+---
+
+<html lang="en" class="dark">
+  <head>
+    <BaseHead 
+      title="About Us" 
+      description="Meet the engineering team behind AutoCyberLab: automotive cybersecurity, CAN Bus analysis, and ECU tuning." 
+      lang="en"
+      translationSlug="sobre-mi"
+    />
+  </head>
+  <body class="bg-[#0A0D12] text-neutral-200 min-h-screen flex flex-col font-sans">
+    <Header lang="en" alternateUrl="/es/sobre-mi/" />
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-14 flex-grow w-full">
+      <div class="mb-10 border-b border-neutral-800 pb-8">
+        <span class="bg-[#00D36C] text-black text-xs font-black font-mono uppercase tracking-widest px-3 py-1">
+          EDITORIAL PROFILE // E-E-A-T
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-4 mb-4">
+          About AutoCyber<span class="text-[#00D36C]">Lab</span>
+        </h1>
+        <p class="text-lg text-neutral-400 leading-relaxed">
+          Independent technical publication at the intersection of software engineering, automotive electronics (OBD2 / ECU), and vehicle cybersecurity.
+        </p>
+      </div>
+
+      <div class="space-y-8 text-neutral-300 leading-relaxed text-lg">
+        <section>
+          <h2 class="text-2xl font-black text-white border-l-4 border-[#00D36C] pl-4 mb-4">
+            Our Mission
+          </h2>
+          <p class="mb-4">
+            Modern vehicles are no longer purely mechanical machines; they are rolling networks governed by up to 100 Electronic Control Units (ECUs), high-speed data buses, and millions of lines of code.
+          </p>
+          <p>
+            At <strong>AutoCyberLab</strong>, we translate complex automotive diagnostics, real-time telemetry, safe ECU remapping, and wireless vulnerability defense into actionable, verifiable guides for tuning enthusiasts, vehicle owners, and engineers.
+          </p>
+        </section>
+
+        <section class="bg-[#11161F] border border-neutral-800 p-6 sm:p-8 my-8">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#00D36C] text-black font-black font-mono text-lg flex items-center justify-center">
+              JB
+            </div>
+            <div>
+              <h3 class="text-xl font-black text-white">Juan David Bernal</h3>
+              <span class="text-xs font-mono uppercase text-[#00D36C]">Founder & Technical Editor // Systems Engineering</span>
+            </div>
+          </div>
+          <p class="text-sm sm:text-base text-neutral-300 leading-relaxed mb-4">
+            Systems Engineering background, software developer, and automotive modification enthusiast with a focus on network security. I founded <strong>AutoCyberLab</strong> to bridge a critical gap in the automotive world: traditional mechanic blogs rarely explain how hexadecimal frames travel across a CAN Bus or how to defend smart keys against RF relay attacks, while academic cybersecurity papers often lack practical application for car enthusiasts.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-neutral-800 text-xs font-mono text-neutral-400">
+            <div><strong class="text-white block">FOCUS 01:</strong> CAN Bus & OBD-II Port Security</div>
+            <div><strong class="text-white block">FOCUS 02:</strong> Telemetry, Fuel Trims & DTC Diagnostics</div>
+            <div><strong class="text-white block">FOCUS 03:</strong> ECU Calibration & Performance Tuning</div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-black text-white border-l-4 border-[#00D36C] pl-4 mb-4">
+            Editorial Standards & Security Ethics
+          </h2>
+          <p>
+            All research published on AutoCyberLab is strictly for educational, diagnostic, and <strong>defensive security purposes</strong>. Our guides reference international standards including <code>SAE J1962</code>, <code>ISO 15765-4 (CAN)</code>, and <code>ISO/SAE 21434</code> to help owners diagnose, optimize, and protect their own vehicles.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

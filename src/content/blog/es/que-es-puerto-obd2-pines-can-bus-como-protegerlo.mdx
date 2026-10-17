@@ -1,0 +1,48 @@
+---
+title: "Puerto OBD2 y protocolo CAN Bus: Pines, diagnóstico y bloqueo"
+description: "Guía completa del conector SAE J1962 (OBD2): diagrama de los 16 pines, cómo funciona el protocolo CAN Bus (Pines 6 y 14) y cómo evitar el robo."
+pubDate: 2026-10-15
+category: "obd2-diagnostics"
+lang: "es"
+translationSlug: "what-is-obd2-port-can-bus-pinout-how-to-lock-it"
+coverImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Debajo del tablero de todo automóvil fabricado desde 1996 en Estados Unidos (y desde principios de los 2000 en Europa y Latinoamérica) se esconde un conector trapezoidal de 16 contactos conocido como **puerto OBD2 (On-Board Diagnostics II)**.
+
+Para un mecánico o entusiasta del tuning, este puerto es la ventana para leer códigos de falla (DTC), registrar telemetría y flashear la ECU. Sin embargo, para los ladrones de vehículos modernos, el puerto OBD2 se ha convertido en la vía más rápida para programar una llave en blanco en menos de 90 segundos.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Mapa de Pines del Conector OBD2 (Estándar SAE J1962)
+
+Aunque el conector tiene 16 cavidades, no todas están ocupadas en todos los autos. Existen **5 pines universales obligatorios** que todo entusiasta del diagnóstico electrónico debe conocer antes de medir con un multímetro o un osciloscopio:
+
+* **Pin 4 (Masa de Chasis / Chassis Ground):** Conectado a la carrocería metálica del vehículo.
+* **Pin 5 (Masa de Señal / Signal Ground):** Referencia de tierra limpia para las comunicaciones digitales (0V lógicos).
+* **Pin 6 (CAN High - ISO 15765-4):** Línea positiva del par trenzado de alta velocidad del bus CAN (opera normalmente entre 2.5V en reposo y 3.5V en bit dominante).
+* **Pin 14 (CAN Low - ISO 15765-4):** Línea negativa del par trenzado de alta velocidad del bus CAN (opera entre 2.5V en reposo y 1.5V en bit dominante).
+* **Pin 16 (+12V Constantes de Batería):** Alimentación directa desde la batería, protegida por un fusible en la caja interior (suele compartir fusible con el encendedor en algunos modelos).
+
+### Cómo comprobar la salud de tu red CAN Bus con un multímetro
+Si tu escáner OBD2 dice *"No hay comunicación con la ECU"*, desconecta la batería del auto, espera 3 minutos y mide la **resistencia (Ohmios) entre el Pin 6 y el Pin 14** del conector OBD2:
+* **Lectura de 60 Ohmios ($\Omega$):** La red física está perfecta (existen dos resistencias terminadoras de $120\ \Omega$ en paralelo en los extremos del bus, generalmente dentro de la ECU de motor y el cuadro de instrumentos).
+* **Lectura de 120 Ohmios ($\Omega$):** Uno de los cables del bus está cortado o uno de los módulos principales está desconectado.
+
+## 2. Por qué los ladrones buscan tu puerto OBD2
+
+En vehículos con arranque por botón (*Keyless Go*), cuando un delincuente rompe un cristal o abre la puerta mediante un ataque de retransmisión, su siguiente paso es conectar un programador portátil al puerto OBD2. 
+
+Al tener energía en el Pin 16 y comunicación directa con el inmovilizador a través de los Pines 6 y 14, el dispositivo pone al auto en "modo aprendizaje de llaves de emergencia", invalida o clona el transpondedor y permite encender el motor.
+
+## 3. Tres métodos efectivos para proteger el puerto OBD2
+
+1. **Cerradura metálica sobre el conector (OBD Port Lock):** Es un bloque de aluminio mecanizado o acero que abraza el conector SAE J1962 original y se asegura con tornillos de cabeza especial o llave tubular.
+2. **Reubicación con conector señuelo (Dummy OBD Port):** Consiste en desacoplar el puerto original de su soporte plástico, esconderlo profundamente detrás de la alfombra y colocar en el lugar original un conector falso que solo tiene conectados los pines de tierra (4 y 5) y +12V (16). El dispositivo del ladrón encenderá su pantalla, pero jamás logrará comunicarse con la red CAN.
+3. **Cortacorrientes oculto en la línea de diagnóstico:** Intercalar un micro-interruptor oculto en la línea de alimentación del Pin 16 (nunca cortes los cables trenzados de los pines 6 y 14 de forma rudimentaria para no generar reflejos de señal o errores `U0100` con el motor en marcha).
+
+## Conclusión
+
+Conocer la arquitectura física de los pines 4, 5, 6, 14 y 16 del puerto OBD2 no solo te ahorrará horas de diagnóstico eléctrico cuando un módulo falle, sino que te permitirá blindar el punto de acceso más sensible de la electrónica de tu vehículo.

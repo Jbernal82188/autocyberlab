@@ -1,0 +1,88 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import AdSlot from '../components/AdSlot.astro';
+
+const { title, description, pubDate, category, lang, translationSlug, coverImage = 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80', readingTime = '5 min' } = Astro.props;
+const alternateUrl = translationSlug ? `/${lang === 'es' ? 'en' : 'es'}/${translationSlug}/` : undefined;
+---
+
+<html lang={lang} class="dark">
+  <head>
+    <BaseHead title={title} description={description} lang={lang} translationSlug={translationSlug} />
+  </head>
+  <body class="bg-[#0A0D12] text-neutral-200 antialiased min-h-screen flex flex-col font-sans">
+    <Header lang={lang} alternateUrl={alternateUrl} />
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
+      
+      <!-- Encabezado Editorial Estilo TechCrunch -->
+      <div class="max-w-4xl mb-8">
+        <div class="flex items-center gap-3 text-xs font-mono uppercase tracking-widest mb-4">
+          <span class="bg-[#00D36C] text-black font-black px-3 py-1">{category}</span>
+          <span class="text-neutral-400">
+            {pubDate.toLocaleDateString(lang === 'es' ? 'es-CO' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </span>
+          <span class="text-[#00D36C]">• {readingTime}</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.12] mb-4">
+          {title}
+        </h1>
+
+        <p class="text-lg sm:text-xl text-neutral-400 leading-relaxed mb-6">
+          {description}
+        </p>
+
+        <div class="flex items-center gap-3 border-y border-neutral-800 py-3 text-xs font-mono">
+          <div class="w-8 h-8 rounded-full bg-[#00D36C] text-black font-black flex items-center justify-center">JB</div>
+          <div>
+            <span class="text-white font-bold block">Juan David Bernal</span>
+            <span class="text-neutral-500">Systems Engineering & Automotive Security Researcher</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout de 2 Columnas (Artículo 8 cols + Barra Lateral AdSense 4 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Columna del Artículo -->
+        <article class="lg:col-span-8">
+          <div class="mb-8 border border-neutral-800 overflow-hidden bg-neutral-900 aspect-[16/9]">
+            <img src={coverImage} alt={title} class="w-full h-full object-cover" />
+          </div>
+
+          <div class="space-y-6 text-neutral-300 leading-relaxed text-[18px]
+                      [&>h2]:text-2xl sm:[&>h2]:text-3xl [&>h2]:font-black [&>h2]:text-white [&>h2]:mt-12 [&>h2]:mb-4 [&>h2]:border-l-4 [&>h2]:border-[#00D36C] [&>h2]:pl-4
+                      [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-[#00D36C] [&>h3]:mt-8 [&>h3]:mb-3
+                      [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-3
+                      [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:space-y-3
+                      [&>p>strong]:text-white [&>li>strong]:text-white
+                      [&>p>code]:bg-neutral-900 [&>p>code]:border [&>p>code]:border-neutral-700 [&>p>code]:text-[#00D36C] [&>p>code]:px-1.5 [&>p>code]:py-0.5 [&>p>code]:font-mono [&>p>code]:text-sm">
+            <slot />
+          </div>
+        </article>
+
+        <!-- Barra Lateral Derecha Fija (Sticky Sidebar) -->
+        <aside class="lg:col-span-4">
+          <div class="sticky top-28 space-y-6">
+            <div class="bg-[#11161F] border border-neutral-800 p-5">
+              <span class="text-xs font-mono uppercase text-[#00D36C] font-bold block mb-2">
+                {lang === 'es' ? 'Verificación Técnica' : 'Technical Verification'}
+              </span>
+              <p class="text-xs text-neutral-400 leading-relaxed">
+                {lang === 'es' 
+                  ? 'Todos nuestros artículos de diagnóstico OBD2 y protocolos CAN Bus son verificados siguiendo el estándar SAE J1962 e ISO 15765-4.'
+                  : 'All OBD2 diagnostics and CAN Bus guides are verified against SAE J1962 and ISO 15765-4 standards.'}
+              </p>
+            </div>
+
+            <!-- Bloque de AdSense Fijo en Escritorio -->
+            <AdSlot slotId="9988776655" />
+          </div>
+        </aside>
+
+      </div>
+    </main>
+  </body>
+</html>

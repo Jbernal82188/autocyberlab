@@ -1,0 +1,35 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+---
+<html lang="es" class="dark">
+  <head>
+    <BaseHead title="Contacto" description="Contacta al equipo de AutoCyberLab para consultas técnicas o colaboraciones." lang="es" />
+  </head>
+  <body class="bg-[#0A0D12] text-neutral-200 min-h-screen flex flex-col font-sans">
+    <Header lang="es" />
+    <main class="max-w-2xl mx-auto px-4 py-16 flex-grow w-full">
+      <h1 class="text-4xl font-black text-white mb-4">Contacto</h1>
+      <p class="text-neutral-400 mb-8">¿Tienes alguna duda técnica sobre diagnóstico OBD2, redes CAN Bus o colaboraciones? Escríbenos directamente.</p>
+      
+      <form action="https://api.web3forms.com/submit" method="POST" class="space-y-5 bg-[#11161F] p-8 border border-neutral-800">
+        <input type="hidden" name="access_key" value="TU_CLAVE_GRATIS_DE_WEB3FORMS" />
+        <div>
+          <label class="block text-xs font-mono uppercase text-[#00D36C] mb-2">Nombre</label>
+          <input type="text" name="name" required class="w-full bg-black border border-neutral-800 px-4 py-3 text-white focus:border-[#00D36C] outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-[#00D36C] mb-2">Correo Electrónico</label>
+          <input type="email" name="email" required class="w-full bg-black border border-neutral-800 px-4 py-3 text-white focus:border-[#00D36C] outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-[#00D36C] mb-2">Mensaje</label>
+          <textarea name="message" rows="4" required class="w-full bg-black border border-neutral-800 px-4 py-3 text-white focus:border-[#00D36C] outline-none"></textarea>
+        </div>
+        <button type="submit" class="bg-[#00D36C] text-black font-black uppercase tracking-wider px-6 py-3 hover:bg-white transition w-full">
+          Enviar Mensaje
+        </button>
+      </form>
+    </main>
+  </body>
+</html>
