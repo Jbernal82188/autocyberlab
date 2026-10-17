@@ -1,0 +1,48 @@
+---
+title: "Faraday Pouches for Car Keys: RF Frequencies Explained & Tested"
+description: "Technical breakdown of how Faraday bags block 125 kHz LF and 315/433 MHz UHF key fob signals, why cheap pouches fail, and how to test RF attenuation."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "en"
+translationSlug: "como-funciona-bolsa-faraday-llaves-auto-frecuencias"
+coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+With wireless relay theft targeting push-to-start vehicles across North America and Europe, **Faraday pouches and RF-shielding boxes** have become essential security gear for car owners. However, independent RF testing shows that nearly 40% of budget pouches sold online fail to block key fob signals entirely—or lose their shielding effectiveness after just a few weeks in your pocket.
+
+To choose a Faraday enclosure that actually stops relay amplifiers, you need to understand the exact radio frequencies your smart key uses and why standard shielding fails.
+
+<AdSlot slotId="1122334455" />
+
+## 1. The Exact Frequencies a Car Key Faraday Pouch Must Block
+
+A common mistake is testing a Faraday bag by placing a smartphone inside and calling it. **Blocking a cellular signal does not mean your car key is safe.** Smartphones operate on higher microwave frequencies (850 MHz to 5 GHz), whereas automotive Passive Keyless Entry (PKE) systems rely on a dual-band architecture that is much harder to attenuate:
+
+1. **Low Frequency Interrogation (LF - 125 kHz / 134.2 kHz):** Your car's door handle antennas transmit a magnetic induction pulse at 125 kHz to wake up the key fob. Low-frequency magnetic fields easily penetrate thin, single-layer metallic fabrics.
+2. **Ultra High Frequency Response (UHF - 315 MHz in US/Canada, 433.92 MHz / 868 MHz in Europe):** Once awakened by the 125 kHz pulse, the fob transmits its encrypted rolling code over UHF.
+3. **Ultra-Wideband (UWB - 6.5 GHz to 8 GHz):** Used in newer luxury vehicles for Time-of-Flight distance bounding.
+
+If a cheap pouch reduces the 315/433 MHz UHF signal by only 20 dB and fails to block the **125 kHz wake-up pulse**, a thief using a high-gain directional antenna near your front door can still wake the key fob and capture its reply.
+
+## 2. What Makes a True Automotive-Grade Faraday Bag?
+
+ Effective RF shielding across both LF and UHF bands requires specific materials and seam geometry:
+
+* **Multi-Layer Copper-Nickel (Cu/Ni) Ripstop Mesh:** High-grade pouches use at least two to three layers of woven nickel and copper fabric, delivering **60 dB to 85+ dB of signal attenuation** across the 100 kHz to 10 GHz spectrum.
+* **Roll-Top Overlap Closure:** Standard zippers cannot block radio waves. If the top flap does not fold over tightly to create a continuous metal-on-metal seal, the opening acts as a *slot antenna* and leaks RF energy.
+
+## 3. Why Faraday Pouches Degrade Over Time (And the 10-Second Door Test)
+
+Every time you sit on a Faraday pouch in your pocket or scrape metal house keys against the inner lining, the microscopic copper-nickel fibers fracture. Within months of daily wear, micro-gaps form in the mesh.
+
+### The Mandatory Monthly Verification Test
+1. Place your key fob inside the inner shielded pocket of the pouch (never the outer unshielded slip pocket) and seal the flap tightly.
+2. Walk directly up to your locked vehicle and hold the pouch within **4 inches (10 cm) of the driver's door handle**.
+3. Pull the handle or press the keyless request button.
+4. **The Verdict:** If the doors unlock or the mirrors unfold, **your pouch has failed** and is no longer blocking 125 kHz proximity polling.
+
+## Conclusion
+
+For carrying your key in your pocket away from home, invest in a dual-layer Cu/Ni pouch with a fold-over velcro seal and avoid storing sharp metal keys in the same compartment. For overnight storage at home, a **rigid Faraday box** lined with thick RF foam and metallic shielding is far superior because its walls never flex or wear out.

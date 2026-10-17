@@ -1,0 +1,47 @@
+---
+title: "How to Clear DTC Codes Safely Without Losing ECU Calibration"
+description: "Learn why disconnecting the car battery to clear a Check Engine light ruins throttle body idle adaptation and emissions monitors, and how to use OBD2 Mode $04."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "en"
+translationSlug: "como-borrar-codigos-dtc-sin-perder-calibracion-ecu"
+coverImage: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Once you have diagnosed and fixed the root cause of a **Check Engine Light (MIL)**—such as replacing a failing ignition coil or cleaning a dirty MAF sensor—the final step is clearing the stored **Diagnostic Trouble Code (DTC)** from the Engine Control Unit (ECU).
+
+While old-school forum advice often suggests *"disconnecting the negative battery terminal for 15 minutes"* to reset the computer for free, doing this on a modern vehicle with an electronic throttle body (Drive-by-Wire) can trigger rough idling, stalling, and lost module adaptations.
+
+<AdSlot slotId="1122334455" />
+
+## 1. What Happens When You Disconnect the Battery (KAM Memory)
+
+Your vehicle's ECU stores data across two distinct memory architectures:
+* **Non-Volatile Flash / EEPROM:** Stores the base calibration maps, VIN, and immobilizer security keys. This data survives a battery disconnect.
+* **Keep Alive Memory (KAM / Volatile SRAM):** Powered continuously by Pin 16 of the OBD2 system, KAM stores **learned adaptive parameters** that compensate for mechanical wear and environmental conditions.
+
+### Three Critical Adaptations Wiped by a Hard Battery Reset
+1. **Electronic Throttle Body (ETB) Learned Idle Stops:** Over time, carbon buildup accumulates around the throttle plate, and the ECU gradually opens the plate an extra 1% to 2% to maintain a smooth 750 RPM idle. Wiping KAM resets the throttle position to factory zero, often causing the engine to stall or surge until a manual Idle Relearn procedure is performed.
+2. **Long Term Fuel Trims (LTFT):** The ECU forgets its learned fuel delivery corrections for altitude, ethanol content, and injector aging, resulting in temporary rich or lean operation.
+3. **Transmission Control Unit (TCU) Shift Adaptations:** Modern automatic and dual-clutch transmissions lose their learned clutch touch-points, leading to harsh shifts for the next 50 to 100 miles.
+
+## 2. The Proper Procedure: OBD2 Mode $04 (KOEO)
+
+To clear fault codes safely using an OBD2 scanner, always follow the **KOEO (Key On, Engine Off)** protocol:
+
+1. **Turn the ignition to ON (Dashboard lit) with the ENGINE OFF:** Most modern ECUs reject the clear command while the engine is running to prevent sudden changes in closed-loop fuel control.
+2. **Save Freeze Frame Data First:** Before hitting clear, record the Freeze Frame snapshot (Mode `$02`) showing exact engine RPM, coolant temperature, and Short Term Fuel Trims at the moment the fault triggered.
+3. **Issue the Clear Command (Mode $04):** Your scanner sends Service `$04` over the CAN Bus, clearing stored codes (Mode `$03`) and pending codes (Mode `$07`) without cutting power to your body control modules, radio presets, or window pinch-protection limits.
+4. **Cycle the Ignition Off for 10 Seconds:** Turn the key off and wait 10 seconds before starting the engine so the ECU completes its power-down latch.
+
+## 3. Warning Before a Smog or Emissions Inspection (I/M Readiness)
+
+Clearing DTC codes resets all **I/M Readiness Monitors** (Catalyst, EVAP, O2 Sensor, Heated O2, EGR) back to **INC / Not Ready**.
+
+Never clear your codes right before driving into a state emissions testing station. Even with the Check Engine Light off, the inspection computer will fail your vehicle immediately if more than one readiness monitor is incomplete. After clearing codes, complete a full **OBD2 Drive Cycle (typically 40 to 60 miles of mixed highway and city driving)** and verify in your scanner app that all monitors read **Ready / Complete**.
+
+## Conclusion
+
+Reserve battery disconnects strictly for electrical work or emergency resets. Using an OBD2 scanner in KOEO mode clears fault codes cleanly while preserving your vehicle's throttle calibration and transmission memory.

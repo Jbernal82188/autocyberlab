@@ -1,0 +1,46 @@
+---
+title: "Código U0100 OBD2: Pérdida de comunicación con ECM/PCM y solución"
+description: "Guía paso a paso para diagnosticar y reparar el código de falla U0100 (Lost Communication with ECM/PCM): pruebas de voltaje, tierras y red CAN Bus."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "es"
+translationSlug: "u0100-code-lost-communication-with-ecm-pcm-diagnosis-fix"
+coverImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+A diferencia de los códigos que empiezan por la letra `P` (como `P0300` de fallo de encendido), los códigos que comienzan con la letra **`U`** pertenecen a la red de comunicaciones interna del vehículo. De todos ellos, el **código DTC U0100 ("Lost Communication with ECM/PCM 'A'")** es uno de los más críticos: significa que el resto de las computadoras del auto (transmisión, frenos ABS, tablero e inmovilizador) **dejaron de recibir mensajes de la computadora principal del motor (ECU/ECM) a través del protocolo CAN Bus**.
+
+Cuando el código `U0100` está activo, el vehículo suele presentar síntomas graves: el motor gira pero no arranca (*Crank, No Start*), la aguja de las RPM cae a cero, el electroventilador del radiador se enciende a máxima velocidad por emergencia y la transmisión entra en modo de protección.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Error número uno: Cambiar la ECU sin medir antes el cableado
+
+Muchos talleres ven el mensaje *"Pérdida de comunicación con el ECM"* y de inmediato le dicen al cliente que la computadora del motor se quemó y hay que comprar una nueva. **En más del 80% de los casos, la ECU está en perfecto estado.**
+
+Para que una ECU pueda hablar por la red CAN Bus necesita tres cosas básicas: **Alimentación positiva (+12V), Tierras firmes (Ground) y un par trenzado de comunicación (CAN High y CAN Low) íntegro**. Si falla un relé de $5 dólares o se sulfata un cable de masa al chasis, la ECU se apaga y todos los demás módulos registran el código `U0100`.
+
+## 2. Protocolo de diagnóstico paso a paso con un multímetro
+
+Antes de desmontar la computadora del motor, realiza estas 4 pruebas eléctricas en orden:
+
+### Paso 1: ¿Tu escáner OBD2 logra entrar al módulo de motor?
+Conecta tu escáner al puerto OBD2 con el contacto en posición ON:
+* **Si el escáner SÍ entra a la ECU de motor y lee datos en vivo (RPM, temperatura):** La ECU está viva y tiene corriente. El código `U0100` fue provocado por un corte intermitente en el arnés de cables del bus CAN o por una caída brusca de voltaje de la batería durante el arranque.
+* **Si el escáner dice "Error de enlace / No hay comunicación con el ECM", pero SÍ entra al módulo ABS o Airbag:** La ECU del motor no está encendiendo o su línea directa al bus CAN está cortada.
+
+### Paso 2: Revisa el Relé Principal (Main Relay / ECM Power Relay) y fusibles
+En la caja de fusibles del compartimento del motor, localiza el fusible rotulado como `ECM`, `PCM`, `EFI` o `IG1` y el **Relé Principal de Inyección (Main Relay)**. Con el contacto abierto, verifica con el multímetro que salgan **12.0V a 12.6V** hacia la computadora. Los relés principales sufren micro-fisuras en sus soldaduras internas por el calor del motor, apagando la ECU en caliente.
+
+### Paso 3: Prueba de caída de tensión en las Tierras (Grounds) de la ECU
+Una masa oxidada o floja en el bloque del motor impide que la ECU cierre su circuito lógico. Mide continuidad y caída de voltaje entre la carcasa de la ECU (o sus pines de masa) y el borne negativo de la batería. La lectura debe ser **inferior a 0.1 voltios (100 mV)** bajo carga.
+
+### Paso 4: Medición de resistencia y voltaje del CAN Bus (Pines 6 y 14)
+1. **Con la batería desconectada:** Mide la resistencia entre el **Pin 6 (CAN High)** y el **Pin 14 (CAN Low)** del conector OBD2. Debe marcar **60 Ohmios ($\Omega$)**. Si marca $120\ \Omega$, la línea hacia la ECU (que contiene una de las dos resistencias terminadoras de $120\ \Omega$) está abierta o el conector de la ECU está sulfatado.
+2. **Con la batería conectada y el contacto en ON:** Mide el voltaje del Pin 6 a tierra (debe estar cerca de **2.6V a 2.8V**) y del Pin 14 a tierra (cerca de **2.2V a 2.4V**). Si uno de los dos marca `0V` o `12V`, hay un cortocircuito en el bus.
+
+## Conclusión
+
+El código `U0100` no es una sentencia de muerte para tu ECU. Revisar primero el estado de la batería, el relé principal del ECM, los puntos de masa al chasis y los 60 Ohmios del bus CAN en el puerto OBD2 te permitirá encontrar el verdadero culpable sin gastar cientos de dólares en piezas innecesarias.

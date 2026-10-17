@@ -1,0 +1,46 @@
+---
+title: "Qué datos recopila tu auto moderno y cómo apagar la telemetría"
+description: "Descubre qué datos privados registran los autos conectados (GPS, frenadas, micrófonos y contactos del celular) y cómo desactivar el envío de telemetría."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "es"
+translationSlug: "what-personal-data-does-your-car-collect-disable-telemetry"
+coverImage: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Cada vez que enciendes un vehículo fabricado en los últimos 6 años o conectas tu teléfono por Bluetooth, USB, Apple CarPlay o Android Auto, tu automóvil hace mucho más que reproducir música. Los vehículos modernos operan como nodos de recolección de datos equipados con **módulos telemáticos celulares (4G/5G integrados)** que transmiten información constante a los servidores del fabricante.
+
+Investigaciones de privacidad automotriz (como los reportes de *Mozilla Foundation*) han demostrado que los automóviles modernos son la categoría de productos de consumo que más datos personales recopila y comercializa, superando incluso a aplicaciones móviles y dispositivos inteligentes del hogar.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Qué datos exactos extrae y envía tu vehículo
+
+A través de la red **CAN Bus** y la unidad telemática de control (**TCU - Telematics Control Unit**), el vehículo recopila tres niveles de información:
+
+### Telemetría de conducción y comportamiento (Para aseguradoras)
+La ECU y el módulo ABS registran cada aceleración brusca, frenada de emergencia, velocidad máxima en curva, uso del cinturón de seguridad y horarios de conducción. Varios fabricantes comparten estos perfiles con corredores de datos (*data brokers* como LexisNexis), quienes los venden a compañías de seguros para calcular o incrementar el precio de tu póliza sin que hayas tenido un accidente.
+
+### Sincronización profunda del teléfono móvil
+Cuando vinculas tu smartphone por primera vez al sistema nativo del auto y aceptas todos los permisos en pantalla sin leer, el sistema multimedia suele descargar una copia local de:
+* Tu agenda completa de contactos y registro histórico de llamadas.
+* Mensajes de texto (SMS) e historial de notificaciones.
+* Metadatos de ubicación de las fotos o destinos buscados en el navegador.
+
+### Geolocalización continua y sensores de cabina
+El módem celular integrado en el auto (que funciona aunque no pagues ninguna suscripción de internet en el vehículo) envía las coordenadas GPS exactas de dónde estacionas, dónde trabajas y qué rutas frecuentas, además de datos de cámaras interiores de monitoreo de fatiga del conductor.
+
+## 2. Cómo desactivar el rastreo y proteger tu privacidad en 4 pasos
+
+No necesitas desmontar el tablero para recuperar el control de tus datos. Sigue este protocolo de privacidad vehicular:
+
+1. **Revoca el permiso de "Uso compartido de datos de conducción" en la App oficial:** Entra a la aplicación móvil de tu marca (como *MyChevrolet*, *FordPass*, *Toyota App*, *MyBMW* o *Mercedes me*), ve a **Privacidad / Gestión de Datos** y desactiva explícitamente programas como *Smart Driver* o *Compartir datos con socios comerciales y aseguradoras*.
+2. **Restringe los permisos de Bluetooth al conectar tu celular:** En tu iPhone o Android, entra a los ajustes de la conexión Bluetooth de tu auto y **desactiva "Sincronizar contactos"** si solo utilizas CarPlay o Android Auto (ya que CarPlay proyecta la interfaz desde tu teléfono sin necesidad de copiar tu agenda en la memoria Flash de la pantalla del auto).
+3. **Usa un bloqueador de datos USB (Data Blocker) en autos alquilados o ajenos:** Nunca conectes tu teléfono por cable USB directo al puerto de un auto de alquiler. Los sistemas forenses pueden extraer el identificador único (UDID) y el registro de contactos en segundos. Usa un adaptador *USB Condom* (que corta los pines centrales de datos `D+` y `D-` y solo deja pasar los +5V de carga) o usa únicamente el encendedor de 12V.
+4. **Haz un "Factory Reset" antes de vender tu auto:** Antes de entregar tu vehículo usado, entra al menú de configuración de la pantalla central y ejecuta **Restablecer valores de fábrica / Borrar datos personales** para eliminar tus ubicaciones de "Casa", tokens de Bluetooth y apertura de puertas de garaje (*HomeLink*).
+
+## Conclusión
+
+La conectividad automotriz ofrece funciones útiles como asistencia en caso de choque, pero por defecto viene configurada en contra de la privacidad del propietario. Dedicar cinco minutos a desactivar la telemetría comercial en el menú de tu vehículo protege tanto tu información personal como el historial con tu aseguradora.

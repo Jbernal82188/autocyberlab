@@ -1,0 +1,49 @@
+---
+title: "U0100 Code: Lost Communication with ECM/PCM Diagnosis & Fix"
+description: "Step-by-step electrical troubleshooting guide for OBD2 trouble code U0100: how to test ECM power relays, chassis grounds, and 60-Ohm CAN Bus resistance."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "en"
+translationSlug: "codigo-u0100-perdida-comunicacion-ecm-pcm-solucion"
+coverImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+readingTime: "7 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Unlike standard `P`-codes that point to sensors or mechanical drivetrain faults, diagnostic trouble codes starting with **`U`** indicate a failure inside the vehicle's onboard communication network. Among them, **DTC U0100 ("Lost Communication with ECM/PCM 'A'")** is one of the most critical: it means the other modules on your vehicle—such as the Transmission Control Module (TCM), ABS module, and Instrument Cluster—**have stopped receiving CAN Bus data frames from the main Engine Control Module (ECM/ECU)**.
+
+When `U0100` sets as an active fault, the vehicle typically exhibits severe symptoms: a **crank-no-start** condition (or no-crank), the tachometer dropping to zero, radiator cooling fans running at 100% duty cycle as a failsafe, and the transmission locking into limp mode.
+
+<AdSlot slotId="1122334455" />
+
+## 1. The #1 Mistake: Condemning the ECU Without Testing Wiring
+
+Many shops see *"Lost Communication with ECM"* on a scan tool and immediately quote the customer $1,000+ for a replacement engine computer. **In over 80% of real-world cases, the ECM itself is completely fine.**
+
+For an ECM to broadcast messages on the CAN Bus, it requires three fundamentals: **clean +12V power, solid chassis grounds, and an intact twisted-pair communication circuit**. If a $10 main relay fails or an engine block ground strap corrodes, the ECM powers down—causing every other module on the network to log code `U0100`.
+
+## 2. Step-by-Step Multimeter Diagnostic Protocol
+
+Before unplugging or replacing your ECU, perform these four electrical tests in order:
+
+### Step 1: Check If Your Scanner Can Communicate with the Engine Module
+Turn the ignition to ON (Engine Off) and attempt to connect to the ECM:
+* **If the scanner connects and displays live engine data:** The ECM is powered and alive. The `U0100` code is likely intermittent, caused by a weak battery voltage drop during cranking, a loose harness connector, or an aftermarket OBD2 dongle interfering with the bus.
+* **If the scanner fails to communicate with the ECM, but connects to the ABS or BCM:** The ECM is either missing power/ground or its CAN Bus branch is open.
+
+### Step 2: Inspect the ECM Main Relay and Fuses
+Locate the under-hood fuse box and test all fuses labeled `ECM`, `PCM`, `EFI`, or `IG1`, along with the **ECM Main Power Relay**. Heat cycling inside the engine bay frequently cracks internal solder joints inside the main relay, cutting +12V supply to the ECU while driving.
+
+### Step 3: Perform a Voltage Drop Test on ECU Grounds
+A corroded ground strap on the cylinder head or fender wall will starve the ECU of current. Using your multimeter, measure voltage drop between the ECU ground pins (or metal case) and the negative battery post with the ignition ON. Anything above **0.1V (100 mV)** indicates high resistance in the ground path.
+
+### Step 4: Test CAN Bus Termination Resistance (Pins 6 & 14)
+1. **Disconnect the negative battery terminal** and wait 3 minutes for all capacitors to discharge.
+2. Measure resistance (Ohms) across **Pin 6 (CAN High)** and **Pin 14 (CAN Low)** at the OBD2 port:
+   * **60 Ohms ($\Omega$):** The physical high-speed CAN Bus backbone and both $120\ \Omega$ termination resistors are intact.
+   * **120 Ohms ($\Omega$):** One termination resistor (almost always located inside the ECM itself) is disconnected from the bus—pointing directly to a broken wire or corroded pin at the ECM harness plug.
+3. **Reconnect the battery (Ignition ON):** Measure voltage from Pin 6 to Ground (**~2.6V to 2.8V**) and Pin 14 to Ground (**~2.2V to 2.4V**). If the two voltages do not add up to approximately **5.0V**, a module or wire is shorting the bus to power or ground.
+
+## Conclusion
+
+DTC `U0100` is a network symptom, not an automatic condemnation of your engine computer. Verifying battery health, testing the ECM main relay, cleaning engine grounds, and confirming 60 Ohms across OBD2 Pins 6 and 14 will pinpoint the fault accurately.

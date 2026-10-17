@@ -1,0 +1,46 @@
+---
+title: "What Personal Data Does Your Car Collect? How to Disable Telemetry"
+description: "Discover how modern connected cars track your GPS location, driving behavior, and phone contacts via cellular telematics—and how to opt out and stop insurance tracking."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "en"
+translationSlug: "que-datos-personales-recopila-tu-auto-como-desactivar-telemetria"
+coverImage: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Every time you start a vehicle manufactured in the last six years or pair your smartphone via Bluetooth, USB, Apple CarPlay, or Android Auto, your car does far more than stream audio. Modern vehicles operate as rolling data collection hubs equipped with built-in **4G/5G Telematics Control Units (TCUs)** that transmit continuous logs back to automaker servers.
+
+Independent privacy audits—most notably by the *Mozilla Foundation*—have ranked modern connected cars as the worst product category ever reviewed for consumer privacy, collecting more personal telemetry than smartphones or smart home devices.
+
+<AdSlot slotId="1122334455" />
+
+## 1. What Data Your Vehicle Secretly Logs and Transmits
+
+By tapping directly into the **CAN Bus** and infotainment network, your car's telematics module collects three primary tiers of personal data:
+
+### Driving Behavior Telemetry (Sold to Insurance Brokers)
+Your ECU and ABS modules log every hard brake, rapid acceleration, cornering G-force, late-night trip, and seatbelt status. Automakers have faced major scrutiny for sharing this telemetry with consumer reporting agencies (such as LexisNexis and Verisk), which generate risk scores used by auto insurance companies to raise your premiums.
+
+### Deep Smartphone Synchronization
+When you pair your phone via Bluetooth or USB and tap "Allow" on the dashboard prompt, the infotainment head unit often stores a local copy of:
+* Your entire contact list, call logs, and text message history.
+* Voice command recordings and navigation history.
+* Unique device identifiers (MAC addresses and IMEI/UDID metadata).
+
+### 24/7 Cellular GPS Tracking
+Even if you do not pay for an in-car WiFi hotspot subscription, the embedded cellular eSIM inside your vehicle's TCU remains active, transmitting exact GPS coordinates of your home, workplace, and daily routines to the manufacturer's cloud.
+
+## 2. How to Opt Out and Disable Car Telemetry in 4 Steps
+
+You do not need to pull fuses or disable your airbags to stop invasive tracking. Follow this automotive privacy checklist:
+
+1. **Opt Out of "Connected Vehicle Data Sharing" in the Manufacturer App:** Open your automaker's mobile app (*FordPass*, *MyChevrolet*, *Toyota App*, *MyBMW*, or *Subaru Solterra Connect*), navigate to **Privacy & Data Settings**, and disable all *Smart Driver*, *Driving Behavior*, and *Third-Party Data Sharing* toggles.
+2. **Submit an Official Privacy Opt-Out Request:** Residents in the US, Europe (GDPR), and several global jurisdictions can submit an online privacy request via platforms like `privacy4cars.com` or directly through the automaker's privacy portal to forbid the sale of VIN-linked telemetry.
+3. **Disable Contact Sync on Bluetooth & Use USB Data Blockers in Rentals:** Never plug your smartphone directly into the USB data port of a rental car. Infotainment forensics tools can extract synced contacts and call logs long after you return the vehicle. Always use a **USB Data Blocker** (which physically disconnects the `D+` and `D-` data pins) or charge via a 12V cigarette lighter adapter.
+4. **Wipe Infotainment Memory Before Selling Your Car:** Always perform a full **Factory Data Reset** inside the head unit settings and clear your *HomeLink* garage door transponders before trading in or selling a vehicle.
+
+## Conclusion
+
+Modern automotive telematics are configured for maximum data harvesting out of the box. Taking five minutes to revoke data-sharing permissions in your vehicle's settings keeps your driving habits private and prevents hidden insurance rate hikes.

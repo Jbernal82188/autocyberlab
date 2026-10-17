@@ -1,0 +1,50 @@
+---
+title: "Bolsas Faraday para llaves de auto: Frecuencias y cómo elegirlas"
+description: "Análisis técnico de las jaulas y bolsas Faraday para llaves inteligentes: qué frecuencias deben bloquear (125 kHz y 433 MHz) y por qué fallan las baratas."
+pubDate: 2026-10-17
+category: "cybersecurity"
+lang: "es"
+translationSlug: "how-faraday-pouches-for-car-keys-work-frequencies-tested"
+coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Ante el aumento global de robos de vehículos con encendido por botón mediante amplificadores de señal (*Relay Attacks*), las **bolsas y cajas Faraday para llaves de auto** se han convertido en el accesorio de seguridad más vendido. Sin embargo, más del 40% de las fundas económicas que se venden en internet dejan de proteger la llave después de apenas dos meses de uso en el bolsillo.
+
+Para elegir un escudo electromagnético que realmente funcione, es fundamental entender qué bandas de radiofrecuencia utiliza tu llave inteligente y cómo opera el principio de atenuación física.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Qué frecuencias exactas debe bloquear una bolsa Faraday automotriz
+
+Mucha gente prueba una bolsa Faraday metiendo su teléfono celular adentro y llamando desde otro teléfono. **Ese es un error técnico grave.** Los teléfonos móviles operan en frecuencias altas (850 MHz a 5 GHz), las cuales son relativamente fáciles de rebotar.
+
+En cambio, el sistema *Keyless Go* de un automóvil utiliza un sistema de doble banda mucho más difícil de contener:
+
+1. **Banda LF (Baja Frecuencia - 125 kHz / 134.2 kHz):** Es el pulso magnético de corto alcance que envía el auto para "despertar" a la llave. Las ondas de baja frecuencia tienen una longitud de onda enorme y atraviesan tejidos delgados con facilidad mediante acoplamiento inductivo.
+2. **Banda UHF (Ultra Alta Frecuencia - 315 MHz en Norteamérica / 433.92 MHz y 868 MHz en Europa y LATAM):** Es la frecuencia en la que la llave responde enviando su código criptográfico para abrir las puertas.
+3. **Banda UWB (Ultra-Wideband - 6.5 GHz a 8 GHz):** Utilizada en vehículos de última generación para medir la distancia exacta por tiempo de vuelo (*Time-of-Flight*).
+
+Si una bolsa Faraday atenúa la banda de 433 MHz en solo 20 decibelios (dB) pero deja pasar el pulso inductivo de **125 kHz**, un amplificador profesional de alta ganancia pegado a la puerta de tu casa seguirá captando la respuesta de la llave.
+
+## 2. De qué están hechas las bolsas que sí funcionan (Níquel + Cobre)
+
+El aluminio doméstico o una sola capa de tela metalizada barata no ofrecen suficiente conductividad ni permeabilidad magnética para frenar los 125 kHz. Una bolsa Faraday de grado automotriz o forense debe contar con:
+
+* **Doble o triple capa de malla compuesta de Cobre y Níquel (Cu/Ni Ripstop):** Logra una atenuación certificada superior a **60 dB – 85 dB** desde los 100 kHz hasta los 10 GHz.
+* **Costuras solapadas sin perforaciones abiertas:** Si el hilo de costura deja espacios de 2 milímetros en los bordes o si el cierre de velcro no dobla la malla sobre sí misma (*roll-top closure*), la bolsa actúa como una antena de ranura (*slot antenna*) y deja escapar la señal.
+
+## 3. Por qué fallan las bolsas Faraday con el tiempo (y cómo probar la tuya hoy)
+
+El tejido metálico interior sufre fatiga mecánica cuando lo doblas en el bolsillo del pantalón o cuando las llaves metálicas raspan el forro interno. Con el uso diario, se crean microfisuras invisibles en la malla de cobre que reducen la atenuación.
+
+### El protocolo de prueba de los 10 segundos (Hazlo cada mes)
+1. Introduce tu llave inteligente dentro de la bolsa Faraday asegurándote de que toque el compartimento interior plateado/dorado (no el bolsillo exterior para tarjetas).
+2. Cierra por completo la solapa de velcro.
+3. Acércate a tu vehículo bloqueado, pon la bolsa a 10 centímetros de la manija de la puerta del conductor y tira de la manija.
+4. **Resultado:** Si los espejos se despliegan o el seguro se abre, **tu bolsa Faraday ha perdido su blindaje** y debes reemplazarla de inmediato.
+
+## Conclusión
+
+Para uso diario en la calle, utiliza una funda Faraday de doble costura con solapa plegable y evita sentarte sobre ella. Y para guardar las llaves durante la noche en casa, la opción más duradera es una **caja Faraday rígida de madera o metal forrada internamente**, ya que sus paredes no sufren desgaste por flexión.

@@ -1,0 +1,47 @@
+---
+title: "Cómo borrar códigos DTC sin desconfigurar la ECU ni el ralentí"
+description: "Aprende la diferencia entre borrar códigos de falla (DTC) con escáner OBD2 y desconectar la batería para no perder los monitores de emisiones ni el ralentí."
+pubDate: 2026-10-17
+category: "obd2-diagnostics"
+lang: "es"
+translationSlug: "how-to-clear-dtc-codes-without-losing-ecu-calibration"
+coverImage: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80"
+readingTime: "6 min"
+---
+import AdSlot from '../../../components/AdSlot.astro';
+
+Cuando se enciende el testigo **Check Engine (MIL)** en el tablero y ya reparaste la causa mecánica —como cambiar una bobina de encendido defectuosa o limpiar el sensor MAF—, el siguiente paso es borrar el código de falla (**DTC - Diagnostic Trouble Code**) almacenado en la computadora del motor.
+
+Sin embargo, el clásico consejo de taller de *"desconectar el borne negativo de la batería durante 15 minutos"* en un auto moderno con acelerador electrónico (Drive-by-Wire) puede provocarte un dolor de cabeza mayor: **ralentí inestable, pérdida de memoria en módulos de carrocería y el reinicio de todos los monitores de emisiones**.
+
+<AdSlot slotId="1122334455" />
+
+## 1. Qué se borra exactamente cuando desconectas la batería (Memoria KAM)
+
+La unidad de control del motor (ECU/PCM) almacena información en dos tipos de memoria distintos:
+* **Memoria Flash / EEPROM (No volátil):** Guarda el software base del motor, los mapas de inyección, el número de chasis (VIN) y los códigos del inmovilizador. No se borra al quitar la batería.
+* **Memoria KAM (Keep Alive Memory / RAM volátil alimentada por el Pin 16):** Guarda los **valores adaptativos** que el motor aprendió durante miles de kilómetros para compensar el desgaste natural.
+
+### Tres parámetros críticos que pierdes al cortar la corriente
+1. **Posición de tope del cuerpo de aceleración electrónico (ETC):** Al perder su referencia de apertura mínima, muchos vehículos (especialmente Nissan, Volkswagen, Ford y Toyota) quedan acelerados a 1,500 RPM o se apagan al soltar el acelerador hasta que ejecutes un reaprendizaje con escáner.
+2. **Ajustes de combustible a largo plazo (Long Term Fuel Trims - LTFT):** La ECU olvida cuánto combustible extra o de menos debía inyectar según la altitud de tu ciudad (clave en ciudades en altura como Bogotá o Ciudad de México) y el estado de los inyectores, provocando mayor consumo durante los primeros 100 km.
+3. **Valores de adaptación de la caja automática (TCU):** En transmisiones modernas, cortar la energía reinicia las presiones de acoplamiento aprendidas, generando pequeños tirones entre marchas mientras vuelve a calibrarse.
+
+## 2. El protocolo correcto: Comando OBD2 Modo $04 (Clear DTCs)
+
+Para apagar el Check Engine de forma limpia, siempre debes utilizar un escáner OBD2 (incluso uno básico ELM327) siguiendo esta secuencia exacta con el auto:
+
+1. **Pon el contacto en posición ON (Contacto abierto, tablero encendido) pero CON EL MOTOR APAGADO (KOEO - Key On, Engine Off):** Muchas ECUs rechazan el comando de borrado si el cigüeñal está girando por seguridad.
+2. **Lee y guarda primero el Freeze Frame (Datos Congelados):** Antes de borrar, revisa en tu aplicación OBD2 a qué RPM, temperatura de refrigerante y carga de motor ocurrió exactamente el fallo.
+3. **Ejecuta el borrado desde la app (Modo $04):** El escáner envía la trama hexadecimal `04` por el protocolo CAN Bus, que limpia los códigos confirmados (Modo `$03`) y pendientes (Modo `$07`) sin cortar el suministro eléctrico de los módulos de confort ni desprogramar los topes mecánicos del cuerpo de aceleración.
+4. **Cierra el contacto durante 10 segundos** antes de arrancar el motor para que la ECU registre el ciclo de apagado limpio.
+
+## 3. Cuidado antes de ir a la Revisión Técnico-Mecánica o de Emisiones (Monitores I/M)
+
+Tanto si borras los códigos con escáner como si desconectas la batería, **todos los Monitores de Preparación de Emisiones (*I/M Readiness Monitors*: Catalizador, EVAP, Sensor de Oxígeno, EGR) pasarán a estado "INCOMPLETO" (Not Ready)**.
+
+Si borras un código DTC en la puerta del centro de inspección vehicular para ocultar el *Check Engine*, su máquina conectada al puerto OBD2 detectará que los monitores están en cero y **reprobarán el vehículo automáticamente**. Después de borrar cualquier código, debes conducir el auto durante un **Ciclo de Conducción completo (entre 50 y 80 km combinando ciudad y autopista)** para que los monitores vuelvan a marcar "OK / Ready".
+
+## Conclusión
+
+Deja el método de desconectar la batería únicamente para emergencias eléctricas en carretera. Para el mantenimiento de tu vehículo, borrar fallas con el motor apagado (KOEO) mediante un lector OBD2 protege las calibraciones del cuerpo de aceleración y te ahorra visitas innecesarias al taller.
