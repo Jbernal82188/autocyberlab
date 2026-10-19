@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://tudominio.com', // Cambia esto por tu dominio final
+  site: 'https://autocyberlab.com', // Cambia esto por tu dominio final
   trailingSlash: 'always', 
   i18n: {
     defaultLocale: 'en', 
