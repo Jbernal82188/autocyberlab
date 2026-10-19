@@ -33,7 +33,7 @@ const alternateURL = translationSlug
 <link rel="alternate" hreflang={alternateLang} href={alternateURL} />
 <link rel="alternate" hreflang="x-default" href={lang === 'en' ? canonicalURL : alternateURL} />
 
-<!-- Datos Estructurados para que Google muestre el nombre "AutoCyberLab" arriba de la URL -->
+<!-- Datos Estructurados para que Google muestre el nombre "AutoCyberLab" -->
 <script type="application/ld+json" is:inline>
   {
     "@context": "https://schema.org",
@@ -43,3 +43,6 @@ const alternateURL = translationSlug
     "url": "https://autocyberlab.com/"
   }
 </script>
+
+<!-- Google AdSense Global Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6894879424224212" crossorigin="anonymous"></script>

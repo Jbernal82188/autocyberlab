@@ -1,19 +1,39 @@
 ---
 interface Props {
-  slotId: string;
+  slotId?: string;
   format?: 'auto' | 'fluid' | 'rectangle';
 }
-const { slotId, format = 'auto' } = Astro.props;
+
+const { slotId = '2001450488', format = 'auto' } = Astro.props;
+// Si algún artículo tiene el ID de prueba "1122334455", usa automáticamente tu ID real "2001450488"
+const activeSlotId = slotId === '1122334455' ? '2001450488' : slotId;
+const adClientId = 'ca-pub-6894879424224212';
 ---
-<div class="my-8 flex flex-col items-center justify-center min-h-[260px] bg-slate-900/30 border border-slate-800 rounded-lg p-2">
-  <span class="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Advertisement</span>
-  <ins class="adsbygoogle w-full"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot={slotId}
-       data-ad-format={format}
-       data-full-width-responsive="true"></ins>
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
+
+<aside
+  class="my-8 w-full min-h-[280px] bg-acl-surface border border-acl-border rounded-lg flex flex-col items-center justify-center p-4 overflow-hidden"
+  aria-label="Advertisement"
+>
+  <span class="text-[10px] font-mono uppercase tracking-widest text-acl-muted mb-2 select-none">
+    Advertisement
+  </span>
+  
+  <!-- AutoCyberLab - InArticle Slot -->
+  <div class="w-full flex justify-center overflow-hidden min-h-[250px]">
+    <ins
+      class="adsbygoogle"
+      style="display:block; width:100%; min-height:250px;"
+      data-ad-client={adClientId}
+      data-ad-slot={activeSlotId}
+      data-ad-format={format}
+      data-full-width-responsive="true"
+    ></ins>
+    <script is:inline>
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error(e);
+      }
+    </script>
+  </div>
+</aside>
